@@ -32,6 +32,14 @@ This number is in the first quintile of the whole dataset, which means though th
 
 The total rental expenses over a two-year program may sum up to USD 40,800, which forms the largest portion of non-tuition expenses.
 
-### Figure 4
+### Figure 4- Visa
+
+The visa application fee required for international students varies by country and it is necessary.
+
+For Monash University, the Australian student visa fee is USD 450, according to the dataset. This is quiet high, with only a country is higher like the United Kingdom charging up to USD 485, while some European countries charge as little as USD 75 and USA is 160.
+
+Although a one-time fee, visa costs still contribute to the total pre-departure expenses. Australia's fee is not among the lowest, but it is unlikely to pose a major barrier relative to larger ongoing expenses like tuition fee or rent.
+
+Given our case budget of USD 43,593.9, this visa fee constitutes roughly 1% of the total cost, but still a necessary consideration in the budgeting process.
 
 ### Figure 5
