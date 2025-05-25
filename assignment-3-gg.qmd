@@ -8,9 +8,9 @@ editor: visual
 
 ### Figure 1- Tuition Fee
 
-Monash University's tuition fee for the entire two-year program is USD 42,800.  
-Compared to other universities, Monash slightly above the meadian, with many U.S. and U.K. universities charging over USD 50,000.  
-This suggests that Monash offers a relatively more affordable tuition fee for master programs among English-speaking countries.  
+Monash University's tuition fee for the entire two-year program is USD 42,800.\
+Compared to other universities, Monash slightly above the meadian, with many U.S. and U.K. universities charging over USD 50,000.\
+This suggests that Monash offers a relatively more affordable tuition fee for master programs among English-speaking countries.\
 For computer science is two-year duration, the annual tuition fee is USD 21,400.
 
 Several European and Latin American universities, such as University of Sao Paulo, Goethe University, and University of Oslo, etc., show a tuition fee of USD 0 in the dataset. This likely reflects the real-world policy of these public universities offering free or nearly free education to international students. However, in some cases, this may also indicate missing or non-standardized data. We treat these values as valid representations of low-cost or no-tuition programs.
@@ -19,8 +19,7 @@ Several European and Latin American universities, such as University of Sao Paul
 
 Figure 2 presents the normalized Living Cost Index, where New York City is assigned a baseline value of 100.
 
-Monash University is located in Melbourne and the courses of computer science are mainly in Clayton. The day-by-day living cost index is 72.8. This means with real-world data from [NUMBEO](https://www.numbeo.com/cost-of-living/in/New-York), which reports the average monthly living cost for single person (excluding rent) in New York City as USD 1,709.20 and in Melbourne as USD 1,244.30. 
-It indicates that daily expenses such as food, transportation, and utilities in Melbourne are relatively manageable than major global cities.
+Monash University is located in Melbourne and the courses of computer science are mainly in Clayton. The day-by-day living cost index is 72.8. This means with real-world data from [NUMBEO](https://www.numbeo.com/cost-of-living/in/New-York), which reports the average monthly living cost for single person (excluding rent) in New York City as USD 1,709.20 and in Melbourne as USD 1,244.30. It indicates that daily expenses such as food, transportation, and utilities in Melbourne are relatively manageable than major global cities.
 
 As a result, Monash students are less likely to encounter excessive living costs compare to other universities for international study.
 
@@ -28,7 +27,7 @@ As a result, Monash students are less likely to encounter excessive living costs
 
 Students at Monash pay around USD 1,700 per month in rent.
 
-This number is in the first quintile of the whole dataset, which means though the rent is lower than cities such as Cambridge, L.A. and Sydney, the rent still may be a burden for the budget. 
+This number is in the first quintile of the whole dataset, which means though the rent is lower than cities such as Cambridge, L.A. and Sydney, the rent still may be a burden for the budget.
 
 The total rental expenses over a two-year program may sum up to USD 40,800, which forms the largest portion of non-tuition expenses.
 
@@ -58,20 +57,44 @@ The following figure compares the total estimated cost of pursuing a Master of C
 
 ```{r}
 #| label: fig-total-cost
-#| fig-cap: "Estimated Total Cost of Master of Computer Science"
+#| fig-cap: "Top 30 Estimated Total Cost of Master of Computer Science"
+#| warning: false
+#| error: false
 
 library(tidyverse)
-library(plotly)
 # Load the dataset
 cost_data <- read_csv("data/International_Education_Costs.csv")
 
-#Filter the data
+# Filter the data
 cost_data <- cost_data |>
   filter(Level == "Master" & Program == "Computer Science") |>
+  # columns for calcuation
   mutate(Monthly_Living_Cost = Living_Cost_Index / 100 * 1709.2,
          Tuition_PerYear = Tuition_USD / Duration_Years,
          Total_Cost = Tuition_PerYear + (Rent_USD + Monthly_Living_Cost) * 12 + Visa_Fee_USD + Insurance_USD)
+
+# Plot with top 30 of living cost
+cost_data_top <- cost_data |>
+  arrange(desc(Total_Cost)) |>
+  slice_head(n = 30)
+# Monash Label
+monash_label <- cost_data_top |>
+  filter(University == "Monash University")
+total_cost_plot <- ggplot(cost_data_top, 
+                          aes(x = reorder(University, Total_Cost),
+                              y = Total_Cost,
+                              fill = University == "Monash University")) +
+  geom_col()+
+  geom_text(data = monash_label,
+            aes(label = paste0("USD ", Total_Cost)),
+            hjust = -0.1, colour = "black", size = 3.5) +
+  coord_flip() +
+  labs(x = "University", y = "Total Estimated Cost (USD)") +
+  theme_minimal() +
+  theme(legend.position = "none",
+    axis.text.y = element_text(size = 7))
+print(total_cost_plot)
 ```
 
+@fig-total-cost shows the top 30 universities with the highest estimated total cost for completing a Master of Computer Science. Monash University ranks in the **upper-middle range**, with a total cost is **USD 57,831.6** for one academic year. Although its tuition fee is moderate, relatively high rent and living expenses in Melbourne contribute to the overall cost. These results highlight the role of rent and living expenses form the full financial burden of international education.
 
-**Figure 1** illustrates the estimated total cost of completing a Master of Computer Science at selected global universities. Monash University appears in the **upper-middle range** of the cost distribution, with a total approaching **USD 58,000** for one academic year. While Monash's tuition remains moderate, Melbourne’s housing cost positions the university above budget-constrained thresholds. In contrast, institutions in Germany and Norway, which offer low or no tuition fees, fall significantly below Monash. These findings highlight the role of rent and living expenses in shaping the overall affordability of international education choices.
