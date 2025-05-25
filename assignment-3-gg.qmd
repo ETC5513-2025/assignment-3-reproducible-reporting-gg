@@ -6,7 +6,14 @@ editor: visual
 
 ## Result for each figure
 
-### Figure 1
+### Figure 1- Tuition Fee
+
+Monash University's tuition fee for the entire two-year program is USD 42,800.  
+Compared to other universities, Monash slightly above the meadian, with many U.S. and U.K. universities charging over USD 50,000.  
+This suggests that Monash offers a relatively more affordable tuition fee for master programs among English-speaking countries.  
+For computer science is two-year duration, the annual tuition fee is USD 21,400.
+
+Several European and Latin American universities, such as those in Norway, Germany, and Brazil, show a tuition fee of USD 0 in the dataset. This likely reflects the real-world policy of these public universities offering free or nearly free education to international students. However, in some cases, this may also indicate missing or non-standardized data. We treat these values as valid representations of low-cost or no-tuition programs.
 
 ### Figure 2
 
