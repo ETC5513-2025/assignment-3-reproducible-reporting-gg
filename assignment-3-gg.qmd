@@ -51,3 +51,24 @@ The insurance cost for studying at Monash University is estimated at USD 650, wh
 Insurance is an essential expense that ensures students have access to healthcare during their stay. Its value is especially important in countries like Australia, where OSHC is a visa requirement.
 
 For our budget-focused analysis, this one-time cost is modest but necessary. When paired with visa fees, they cost total USD 1,100, which should be accounted for in advance planning.
+
+### Result of the report
+
+The following figure compares the total estimated cost of pursuing a Master of Computer Science across selected universities
+
+```{r}
+#| label: fig-total-cost
+#| fig-cap: "Estimated Total Cost of Master of Computer Science"
+
+library(tidyverse)
+library(plotly)
+# Load the dataset
+cost_data <- read_csv("data/International_Education_Costs.csv")
+
+#Filter the data
+cost_data <- cost_data |>
+  filter(Level == "Master" & Program == "Computer Science")
+```
+
+
+**Figure 1** illustrates the estimated total cost of completing a Master of Computer Science at selected global universities. Monash University appears in the **upper-middle range** of the cost distribution, with a total approaching **USD 58,000** for one academic year. While Monash's tuition remains moderate, Melbourne’s housing cost positions the university above budget-constrained thresholds. In contrast, institutions in Germany and Norway, which offer low or no tuition fees, fall significantly below Monash. These findings highlight the role of rent and living expenses in shaping the overall affordability of international education choices.
