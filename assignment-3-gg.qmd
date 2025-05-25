@@ -24,7 +24,13 @@ It indicates that daily expenses such as food, transportation, and utilities in 
 
 As a result, Monash students are less likely to encounter excessive living costs compare to other universities for international study.
 
-### Figure 3
+### Figure 3- Rent
+
+Students at Monash pay around USD 1,700 per month in rent.
+
+This number is in the first quintile of the whole dataset, which means though the rent is lower than cities such as Cambridge, L.A. and Sydney, the rent still may be a burden for the budget. 
+
+The total rental expenses over a two-year program may sum up to USD 40,800, which forms the largest portion of non-tuition expenses.
 
 ### Figure 4
 
