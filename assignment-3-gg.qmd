@@ -67,7 +67,10 @@ cost_data <- read_csv("data/International_Education_Costs.csv")
 
 #Filter the data
 cost_data <- cost_data |>
-  filter(Level == "Master" & Program == "Computer Science")
+  filter(Level == "Master" & Program == "Computer Science") |>
+  mutate(Monthly_Living_Cost = Living_Cost_Index / 100 * 1709.2,
+         Tuition_PerYear = Tuition_USD / Duration_Years,
+         Total_Cost = Tuition_PerYear + (Rent_USD + Monthly_Living_Cost) * 12 + Visa_Fee_USD + Insurance_USD)
 ```
 
 
