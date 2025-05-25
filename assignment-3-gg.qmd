@@ -14,4 +14,22 @@ format:
 editor: visual
 ---
 
-## 
+## Executive Summary
+
+This report investigates whether a U.S. student applying to the Master of Computer Science program at Monash University can afford the associated costs.\
+The student’s parents are willing to provide full financial support, with an annual budget of USD 43,593.9.\
+By calculating and comparing tuition, rent, visa, and insurance expenses over two years, we estimate the total cost at approximately USD 84,700.\
+The results indicate that while the budget is sufficient, the choice may still impose noticeable financial pressure on the family.
+
+## Introduction 
+
+Pursuing a graduate degree abroad is a major life decision that often comes with substantial financial considerations.\
+This report focuses on a student from the United States who plans to apply for the Master of Computer Science program at Monash University.\
+The student’s tuition and living costs will be fully supported by their parents.\
+The family has set a fixed annual budget of USD 43,593.9 for the two-year program.\
+No scholarships, personal savings, or part-time work are assumed in this analysis.\
+The key question is whether this budget allows the student to afford Monash without putting excessive financial pressure on the family.\
+We analyze multiple cost components including tuition, accommodation, visa fees, and insurance.\
+Data is sourced from a standardized international education cost dataset in USD.\
+Monash University, located in Melbourne, is known for its strong computer science program but also relatively high costs.\
+This report aims to assess affordability under the current assumptions and explore whether the choice is financially sustainable for the student’s family.
