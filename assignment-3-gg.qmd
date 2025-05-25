@@ -13,9 +13,16 @@ Compared to other universities, Monash slightly above the meadian, with many U.S
 This suggests that Monash offers a relatively more affordable tuition fee for master programs among English-speaking countries.  
 For computer science is two-year duration, the annual tuition fee is USD 21,400.
 
-Several European and Latin American universities, such as those in Norway, Germany, and Brazil, show a tuition fee of USD 0 in the dataset. This likely reflects the real-world policy of these public universities offering free or nearly free education to international students. However, in some cases, this may also indicate missing or non-standardized data. We treat these values as valid representations of low-cost or no-tuition programs.
+Several European and Latin American universities, such as University of Sao Paulo, Goethe University, and University of Oslo, etc., show a tuition fee of USD 0 in the dataset. This likely reflects the real-world policy of these public universities offering free or nearly free education to international students. However, in some cases, this may also indicate missing or non-standardized data. We treat these values as valid representations of low-cost or no-tuition programs.
 
-### Figure 2
+### Figure 2- Living Cost Index
+
+Figure 2 presents the normalized Living Cost Index, where New York City is assigned a baseline value of 100.
+
+Monash University is located in Melbourne and the courses of computer science are mainly in Clayton. The day-by-day living cost index is 72.8. This means with real-world data from [NUMBEO](https://www.numbeo.com/cost-of-living/in/New-York), which reports the average monthly living cost for single person (excluding rent) in New York City as USD 1,709.20 and in Melbourne as USD 1,244.30. 
+It indicates that daily expenses such as food, transportation, and utilities in Melbourne are relatively manageable than major global cities.
+
+As a result, Monash students are less likely to encounter excessive living costs compare to other universities for international study.
 
 ### Figure 3
 
