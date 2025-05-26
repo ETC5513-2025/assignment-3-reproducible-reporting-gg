@@ -2,8 +2,8 @@
 
 Group Members:
 
-*
-*
-*
+* Nutchanok Saitin - 35493011
+* TZU-HSUAN Yang - 35461586
+* Ruowei Li - 35693436
 
-Topic: 
+Topic: Is Monash University affordable for international student? 
