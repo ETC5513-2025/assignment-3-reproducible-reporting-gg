@@ -60,6 +60,7 @@ The following figure compares the total estimated cost of pursuing a Master of C
 #| fig-cap: "Top 30 Estimated Total Cost of Master of Computer Science"
 #| warning: false
 #| error: false
+#| echo: false
 
 library(tidyverse)
 # Load the dataset
@@ -97,4 +98,3 @@ print(total_cost_plot)
 ```
 
 @fig-total-cost shows the top 30 universities with the highest estimated total cost for completing a Master of Computer Science. Monash University ranks in the **upper-middle range**, with a total cost is **USD 57,831.6** for one academic year. Although its tuition fee is moderate, relatively high rent and living expenses in Melbourne contribute to the overall cost. These results highlight the role of rent and living expenses form the full financial burden of international education.
-
