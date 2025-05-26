@@ -16,21 +16,63 @@ This analysis based on `The Cost of International Education` dataset which was i
 
 This dataset provides USD-standardized values for tuition, rent, living-cost index, visa fees, and insurance across universities, globally. We filtered for the Master of Computer Science program at every university, verified that key cost fields were numeric, and removed any rows with missing values in those columns.
 
-Each institution’s Total First-Year Cost was calculated by summing four components:
+**Cost Component Calculation**
+
+Each institution’s Total yearly Cost was calculated by summing four components:
 
   **1.  Annual Tuition** = Tuition_USD ÷ Duration_Years
   **2.  Annual Rent** = Rent_USD × 12
   **3.  Other Living Cost** = $15,000 × (Living_Cost_Index ÷ 100)
-  **4.  One-off Fees** = Visa_Fee_USD + Insurance_USD
+  **4.  One-off Fees** = (Visa_Fee_USD + Insurance_USD) ÷ Duration_Years <- recheck  
+  
+**Income Projection, Budget and Affordability Ratio**
 
-We sourced the 2023 U.S. median household income ($80,160) and projected it to 2025 using a 2.8% compound growth rate:
+We sourced the 2023 U.S. median household income of $80,160) and projected it to 2025 using a 2.8% compound growth rate: Average Household Income in 2025 =  $80,160 * (1 + 0.028)^2
+
+Assuming that each student will have half of median household income as their budget to make a comparison: 
+Budget = Average Household Income in 2025 * 0.5
+
+Affordability ratio was defined by: affordability ratio = student budget/cost per year
+ratio > 1 will indicate that student budget can cover the annual cost.
+
+**Analytical Environment**
+
+All calculation were executed in R using ...  and ggplot2. 
+Figure 1 represent ... 
+Table 1 represent ...
+
+```{r data calculation}
+#| echo: false
+#| warning: true
+#| message: false
+
+library(tidyverse)
+library(here)
+
+# Read in dataset
+international_stu_cost <- read_csv(here("data/International_Education_Costs.csv"))
+
+# Calculate projected costs and affordability
+master_comsci_costs <- international_stu_cost |>
+  filter( Program == "Computer Science",
+          Level == "Master") |>
+  mutate(
+    annual_tuition = Tuition_USD / Duration_Years,
+    annual_rent = Rent_USD * 12,
+    other_living_cost = ( Living_Cost_Index / 100 ) * 15000
+      )
+```
+
 
 ```{r fig-affordability}
 #| echo: false
 #| warning: true
 #| message: false
 
+
+
 ```
+
 
 ```{r table-affordability}
 #| echo: false
