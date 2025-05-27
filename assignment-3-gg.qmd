@@ -14,6 +14,7 @@ format:
 editor: visual
 ---
 
+<<<<<<< HEAD
 ## Executive Summary
 
 This report investigates whether a U.S. student applying to the Master of Computer Science program at Monash University can afford the associated costs.
@@ -151,3 +152,50 @@ knitr::kable(
 )
 ```
 
+## Result
+
+The following figure compares the total estimated cost of pursuing a Master of Computer Science across selected universities
+
+```{r}
+#| label: fig-total-cost
+#| fig-cap: "Top 30 Estimated Total Cost of Master of Computer Science"
+#| warning: false
+#| error: false
+#| echo: false
+
+library(tidyverse)
+# Load the dataset
+cost_data <- read_csv("data/International_Education_Costs.csv")
+
+# Filter the data
+cost_data <- cost_data |>
+  filter(Level == "Master" & Program == "Computer Science") |>
+  # columns for calcuation
+  mutate(Monthly_Living_Cost = Living_Cost_Index / 100 * 1709.2,
+         Tuition_PerYear = Tuition_USD / Duration_Years,
+         Total_Cost = Tuition_PerYear + (Rent_USD + Monthly_Living_Cost) * 12 + Visa_Fee_USD + Insurance_USD)
+
+# Plot with top 30 of living cost
+cost_data_top <- cost_data |>
+  arrange(desc(Total_Cost)) |>
+  slice_head(n = 30)
+# Monash Label
+monash_label <- cost_data_top |>
+  filter(University == "Monash University")
+total_cost_plot <- ggplot(cost_data_top, 
+                          aes(x = reorder(University, Total_Cost),
+                              y = Total_Cost,
+                              fill = University == "Monash University")) +
+  geom_col()+
+  geom_text(data = monash_label,
+            aes(label = paste0("USD ", Total_Cost)),
+            hjust = -0.1, colour = "black", size = 3.5) +
+  coord_flip() +
+  labs(x = "University", y = "Total Estimated Cost (USD)") +
+  theme_minimal() +
+  theme(legend.position = "none",
+    axis.text.y = element_text(size = 7))
+print(total_cost_plot)
+```
+
+@fig-total-cost shows the top 30 universities with the highest estimated total cost for completing a Master of Computer Science. Monash University ranks in the **upper-middle range**, with a total cost is **USD 57,831.6** for one academic year. Although its tuition fee is moderate, relatively high rent and living expenses in Melbourne contribute to the overall cost. These results highlight the role of rent and living expenses form the full financial burden of international education.
