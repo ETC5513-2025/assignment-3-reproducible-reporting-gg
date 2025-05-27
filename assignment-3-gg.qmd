@@ -14,8 +14,6 @@ format:
 editor: visual
 ---
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 ## Executive Summary
 
 This report investigates whether a U.S. student applying to the Master of Computer Science program at Monash University can afford the associated costs.
