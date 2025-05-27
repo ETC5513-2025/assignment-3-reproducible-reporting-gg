@@ -34,3 +34,120 @@ Data is sourced from a standardized international education cost dataset in USD.
 Monash University, located in Melbourne, is known for its strong computer science program but also relatively high costs.
 This report aims to assess affordability under the current assumptions and explore whether the choice is financially sustainable for the student’s family.
 
+## Methodology
+
+**Data Import and Validation**
+
+This analysis based on `The Cost of International Education` dataset which was imported via `read_csv(here("data/International_Education_Costs.csv"))`.
+
+```{r import data}
+#| echo: false
+#| warning: true
+#| message: false
+
+library(tidyverse)
+library(here)
+
+# Read in dataset
+international_stu_cost <- read_csv(here("data/International_Education_Costs.csv"))
+
+```
+
+This dataset provides USD-standardized values for tuition, rent, living-cost index, visa fees, and insurance across universities, in 2025 globally. We filtered for the Master of Computer Science program at every university, verified that key cost fields were numeric, and removed any rows with missing values in those columns.
+
+**Cost Component Calculation**
+
+Each institution’s Total yearly Cost was calculated by summing four components:
+
+**1. Annual Tuition** = Tuition_USD ÷ Duration_Years
+**2. Annual Rent** = Rent_USD × 12 
+**3. Other Living Cost** = \$15,000 × (Living_Cost_Index ÷ 100) 
+**4. One-off Fees** = (Visa_Fee_USD + Insurance_USD) ÷ Duration_Years 
+
+**Income Projection, Budget and Affordability Ratio**
+
+We sourced the 2023 U.S. median household income of \$80,160) and projected it to 2025 using a 2.8% compound growth rate: Average Household Income in 2025 = \$80,160 \* (1 + 0.028)\^2
+
+Assuming that each student will have half of median household income as their budget to make a comparison: Budget = Average Household Income in 2025 \* 0.5
+
+Affordability ratio was defined by: affordability ratio = student budget/cost per year ratio \> 1 will indicate that student budget can cover the annual cost.
+
+**Analytical Environment**
+
+All calculation and visualization were executed in R using tidyverse package (which includes readr, dplyr, tidyr, ggplot2, tibble, purrr, et c.) and Quarto for reporting.
+
+- Figure 1 represent each university’s affordability ratio
+- Table 1 represent lists the top five most and least affordable programs.
+
+```{r data calculation}
+#| echo: false
+#| warning: true
+#| message: false
+
+# 1. Calculate yearly costs
+master_comsci_costs <- international_stu_cost |>
+  filter( Program == "Computer Science",
+          Level == "Master") |>
+  mutate(
+    annual_tuition = Tuition_USD / Duration_Years,
+    annual_rent = Rent_USD * 12,
+    other_living_cost = ( Living_Cost_Index / 100 ) * 15000,
+    one_off_fees = Visa_Fee_USD + Insurance_USD, #Duration_Years,
+    total_yearly_costs = annual_tuition + annual_rent + other_living_cost + one_off_fees 
+      ) |>
+  select(!c(Exchange_Rate, Insurance_USD, Visa_Fee_USD, Rent_USD, Living_Cost_Index, Tuition_USD, Duration_Years))
+
+# 2. Project 2023 income to 2025 and define student budget
+base_income_2023    <- 80610   # from U.S. Census Bureau
+income_2025         <- base_income_2023 * (1 + 0.028)^2
+student_budget_2025 <- 0.5 * income_2025
+
+# 3. Summarise by university and compute affordability ratio
+affordability_ratio <- master_comsci_costs |>
+  mutate(
+    StudentBudget2025  = student_budget_2025,
+    AffordabilityRatio = StudentBudget2025 / total_yearly_costs
+  )
+```
+
+```{r fig-affordability}
+#| echo: false
+#| warning: true
+#| message: false
+
+affordability_ratio |>
+  tail(30) |>
+  ggplot(aes(x = reorder(University, AffordabilityRatio) , y = AffordabilityRatio)) +
+    geom_col(fill = "steelblue") +
+    coord_flip() +
+    labs(
+      title    = "Affordability Ratios for Master of Computer Science Programs",
+      subtitle = "Based on 50% of projected 2025 U.S. median household income",
+      x        = "University",
+      y        = "Affordability Ratio"
+    ) 
+```
+
+```{r table-affordability}
+#| echo: false
+#| warning: true
+#| message: false
+
+comparison_table <- affordability_ratio |>
+  arrange(desc(AffordabilityRatio)) |>
+  slice_head(n = 5) |>
+  mutate(Category = "Most Affordable") |>
+  bind_rows(
+    affordability_ratio  |>
+      arrange(AffordabilityRatio) |>
+      slice_head(n = 5) |>
+      mutate(Category = "Least Affordable")
+  ) |>
+  select(Category, University, AffordabilityRatio)
+
+knitr::kable(
+  comparison_table,
+  caption = "Table 1: Top 5 Most and Least Affordable MCS Programs for U.S. Students in 2025"
+)
+```
+
