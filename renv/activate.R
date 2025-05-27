@@ -2,7 +2,11 @@
 local({
 
   # the requested version of renv
+<<<<<<< HEAD
   version <- "1.1.2"
+=======
+  version <- "1.1.3"
+>>>>>>> executive-summary
   attr(version, "sha") <- NULL
 
   # the project directory
@@ -695,11 +699,27 @@ local({
   
   }
   
+<<<<<<< HEAD
   renv_bootstrap_platform_prefix <- function() {
   
     # construct version prefix
     version <- paste(R.version$major, R.version$minor, sep = ".")
     prefix <- paste("R", numeric_version(version)[1, 1:2], sep = "-")
+=======
+  renv_bootstrap_platform_prefix_default <- function() {
+  
+    # read version component
+    version <- Sys.getenv("RENV_PATHS_VERSION", unset = "R-%v")
+  
+    # expand placeholders
+    placeholders <- list(
+      list("%v", format(getRversion()[1, 1:2])),
+      list("%V", format(getRversion()[1, 1:3]))
+    )
+  
+    for (placeholder in placeholders)
+      version <- gsub(placeholder[[1L]], placeholder[[2L]], version, fixed = TRUE)
+>>>>>>> executive-summary
   
     # include SVN revision for development versions of R
     # (to avoid sharing platform-specific artefacts with released versions of R)
@@ -708,10 +728,26 @@ local({
       identical(R.version[["nickname"]], "Unsuffered Consequences")
   
     if (devel)
+<<<<<<< HEAD
       prefix <- paste(prefix, R.version[["svn rev"]], sep = "-r")
   
     # build list of path components
     components <- c(prefix, R.version$platform)
+=======
+      version <- paste(version, R.version[["svn rev"]], sep = "-r")
+  
+    version
+  
+  }
+  
+  renv_bootstrap_platform_prefix <- function() {
+  
+    # construct version prefix
+    version <- renv_bootstrap_platform_prefix_default()
+  
+    # build list of path components
+    components <- c(version, R.version$platform)
+>>>>>>> executive-summary
   
     # include prefix if provided by user
     prefix <- renv_bootstrap_platform_prefix_impl()
@@ -950,6 +986,7 @@ local({
   }
   
   renv_bootstrap_validate_version_dev <- function(version, description) {
+<<<<<<< HEAD
     
     expected <- description[["RemoteSha"]]
     if (!is.character(expected))
@@ -958,6 +995,16 @@ local({
     pattern <- sprintf("^\\Q%s\\E", version)
     grepl(pattern, expected, perl = TRUE)
     
+=======
+  
+    expected <- description[["RemoteSha"]]
+    if (!is.character(expected))
+      return(FALSE)
+  
+    pattern <- sprintf("^\\Q%s\\E", version)
+    grepl(pattern, expected, perl = TRUE)
+  
+>>>>>>> executive-summary
   }
   
   renv_bootstrap_validate_version_release <- function(version, description) {
@@ -1198,6 +1245,7 @@ local({
   }
   
   renv_json_read_patterns <- function() {
+<<<<<<< HEAD
     
     list(
       
@@ -1214,20 +1262,49 @@ local({
       
     )
     
+=======
+  
+    list(
+  
+      # objects
+      list("{", "\t\n\tobject(\t\n\t", TRUE),
+      list("}", "\t\n\t)\t\n\t",       TRUE),
+  
+      # arrays
+      list("[", "\t\n\tarray(\t\n\t", TRUE),
+      list("]", "\n\t\n)\n\t\n",      TRUE),
+  
+      # maps
+      list(":", "\t\n\t=\t\n\t", TRUE),
+  
+      # newlines
+      list("\\u000a", "\n", FALSE)
+  
+    )
+  
+>>>>>>> executive-summary
   }
   
   renv_json_read_envir <- function() {
   
     envir <- new.env(parent = emptyenv())
+<<<<<<< HEAD
     
     envir[["+"]] <- `+`
     envir[["-"]] <- `-`
     
+=======
+  
+    envir[["+"]] <- `+`
+    envir[["-"]] <- `-`
+  
+>>>>>>> executive-summary
     envir[["object"]] <- function(...) {
       result <- list(...)
       names(result) <- as.character(names(result))
       result
     }
+<<<<<<< HEAD
     
     envir[["array"]] <- list
     
@@ -1244,40 +1321,83 @@ local({
     # repair names if necessary
     if (!is.null(names(object))) {
       
+=======
+  
+    envir[["array"]] <- list
+  
+    envir[["true"]]  <- TRUE
+    envir[["false"]] <- FALSE
+    envir[["null"]]  <- NULL
+  
+    envir
+  
+  }
+  
+  renv_json_read_remap <- function(object, patterns) {
+  
+    # repair names if necessary
+    if (!is.null(names(object))) {
+  
+>>>>>>> executive-summary
       nms <- names(object)
       for (pattern in patterns)
         nms <- gsub(pattern[[2L]], pattern[[1L]], nms, fixed = TRUE)
       names(object) <- nms
+<<<<<<< HEAD
       
     }
     
+=======
+  
+    }
+  
+>>>>>>> executive-summary
     # repair strings if necessary
     if (is.character(object)) {
       for (pattern in patterns)
         object <- gsub(pattern[[2L]], pattern[[1L]], object, fixed = TRUE)
     }
+<<<<<<< HEAD
     
+=======
+  
+>>>>>>> executive-summary
     # recurse for other objects
     if (is.recursive(object))
       for (i in seq_along(object))
         object[i] <- list(renv_json_read_remap(object[[i]], patterns))
+<<<<<<< HEAD
     
     # return remapped object
     object
     
+=======
+  
+    # return remapped object
+    object
+  
+>>>>>>> executive-summary
   }
   
   renv_json_read_default <- function(file = NULL, text = NULL) {
   
     # read json text
     text <- paste(text %||% readLines(file, warn = FALSE), collapse = "\n")
+<<<<<<< HEAD
     
+=======
+  
+>>>>>>> executive-summary
     # convert into something the R parser will understand
     patterns <- renv_json_read_patterns()
     transformed <- text
     for (pattern in patterns)
       transformed <- gsub(pattern[[1L]], pattern[[2L]], transformed, fixed = TRUE)
+<<<<<<< HEAD
     
+=======
+  
+>>>>>>> executive-summary
     # parse it
     rfile <- tempfile("renv-json-", fileext = ".R")
     on.exit(unlink(rfile), add = TRUE)
@@ -1287,9 +1407,16 @@ local({
     # evaluate in safe environment
     result <- eval(json, envir = renv_json_read_envir())
   
+<<<<<<< HEAD
     # fix up strings if necessary
     renv_json_read_remap(result, patterns)
     
+=======
+    # fix up strings if necessary -- do so only with reversible patterns
+    patterns <- Filter(function(pattern) pattern[[3L]], patterns)
+    renv_json_read_remap(result, patterns)
+  
+>>>>>>> executive-summary
   }
   
 

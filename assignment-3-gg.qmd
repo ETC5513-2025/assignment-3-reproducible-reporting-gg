@@ -1,26 +1,23 @@
 ---
-title: "assignment3-gg"
-format: pdf
+title: "Assignment 3 - gg"
+author:
+  - 
+  - 
+  - 
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    fig-cap-location: bottom
+    tbl-cap-location: top
+    keep-tex: true
 editor: visual
 ---
 
-## Quarto
+## Executive Summary
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+This report investigates whether a U.S. student applying to the Master of Computer Science program at Monash University can afford the associated costs.
+The student’s parents are willing to provide full financial support, with an annual budget of USD 43,593.9.
+By calculating and comparing tuition, rent, visa, and insurance expenses over two years, we estimate the total cost at approximately USD 84,700.
+The results indicate that while the budget is sufficient, the choice may still impose noticeable financial pressure on the family.
 
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
-
-You can add options to executable code like this
-
-```{r}
-#| echo: false
-2 * 2
-```
-
-The `echo: false` option disables the printing of code (only output is displayed).
