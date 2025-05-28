@@ -16,23 +16,11 @@ editor: visual
 
 ## Executive Summary
 
-This report investigates whether a U.S. student applying to the Master of Computer Science program at Monash University can afford the associated costs.
-The student’s parents are willing to provide full financial support, with an annual budget of USD 43,593.9.
-By calculating and comparing tuition, rent, visa, and insurance expenses over two years, we estimate the total cost at approximately USD 84,700.
-The results indicate that while the budget is sufficient, the choice may still impose noticeable financial pressure on the family.
+This report evaluates whether a U.S. student, fully supported by their parents, can afford to study the Master of Computer Science program at Monash University. The annual budget is USD 43,593.90. By analyzing tuition, living expenses, rent, visa, and insurance costs, we estimate the total cost for one year to be approximately USD 57,831.60. This exceeds the available budget by over USD 14,000. Our findings suggest that studying at Monash would not be financially feasible under current conditions, unless additional support—such as scholarships, shared housing, or part-time work—is secured.
 
 ## Introduction
 
-Pursuing a graduate degree abroad is a major life decision that often comes with substantial financial considerations.
-This report focuses on a student from the United States who plans to apply for the Master of Computer Science program at Monash University.
-The student’s tuition and living costs will be fully supported by their parents.
-The family has set a fixed annual budget of USD 43,593.9 for the two-year program.
-No scholarships, personal savings, or part-time work are assumed in this analysis.
-The key question is whether this budget allows the student to afford Monash without putting excessive financial pressure on the family.
-We analyze multiple cost components including tuition, accommodation, visa fees, and insurance.
-Data is sourced from a standardized international education cost dataset in USD.
-Monash University, located in Melbourne, is known for its strong computer science program but also relatively high costs.
-This report aims to assess affordability under the current assumptions and explore whether the choice is financially sustainable for the student’s family.
+Pursuing a graduate degree abroad is a major life decision that often comes with substantial financial considerations. This report focuses on a student from the United States who plans to apply for the Master of Computer Science program at Monash University. The student’s tuition and living costs will be fully supported by their parents. The family has set a fixed annual budget of USD 43,593.9 for the two-year program. No scholarships, personal savings, or part-time work are assumed in this analysis. The key question is whether this budget allows the student to afford Monash without putting excessive financial pressure on the family. We analyze multiple cost components including tuition, accommodation, visa fees, and insurance. Data is sourced from a standardized international education cost dataset in USD. Monash University, located in Melbourne, is known for its strong computer science program but also relatively high costs. This report aims to assess affordability under the current assumptions and explore whether the choice is financially sustainable for the student’s family.
 
 ## Methodology
 
@@ -59,10 +47,7 @@ This dataset provides USD-standardized values for tuition, rent, living-cost ind
 
 Each institution’s Total yearly Cost was calculated by summing four components:
 
-**1. Annual Tuition** = Tuition_USD ÷ Duration_Years
-**2. Annual Rent** = Rent_USD × 12 
-**3. Other Living Cost** = \$15,000 × (Living_Cost_Index ÷ 100) 
-**4. One-off Fees** = (Visa_Fee_USD + Insurance_USD) ÷ Duration_Years 
+**1. Annual Tuition** = Tuition_USD ÷ Duration_Years **2. Annual Rent** = Rent_USD × 12 **3. Other Living Cost** = \$15,000 × (Living_Cost_Index ÷ 100) **4. One-off Fees** = (Visa_Fee_USD + Insurance_USD) ÷ Duration_Years
 
 **Income Projection, Budget and Affordability Ratio**
 
@@ -76,8 +61,8 @@ Affordability ratio was defined by: affordability ratio = student budget/cost pe
 
 All calculation and visualization were executed in R using tidyverse package (which includes readr, dplyr, tidyr, ggplot2, tibble, purrr, et c.) and Quarto for reporting.
 
-- Figure 1 represent each university’s affordability ratio
-- Table 1 represent lists the top five most and least affordable programs.
+-   Figure 1 represent each university’s affordability ratio
+-   Table 1 represent lists the top five most and least affordable programs.
 
 ```{r data calculation}
 #| echo: false
@@ -208,4 +193,3 @@ Our analysis shows that Monash University’s tuition fee of a year is **USD 21,
 Therefore, under current assumptions, pursuing this degree at Monash would **likely impose a financial burden** unless supplementary funding options such as scholarships, shared housing, or part-time employment are secured.
 
 We recommend that international students conduct a detailed cost breakdown when planning to study abroad, considering not only tuition fee but also living and setup costs. University like Monash remain attractive due to their academic reputation and moderate tuition fee, but total affordability depends on each student’s financial context.
-
