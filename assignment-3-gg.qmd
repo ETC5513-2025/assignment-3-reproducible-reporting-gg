@@ -6,14 +6,13 @@ author:
   - Ruowei Li 
 format:
   html:
-    toc: true
-    number-sections: true
-  pdf:
-    toc: true
-    number-sections: true
+    toc: false
     fig-cap-location: bottom
     tbl-cap-location: top
-    keep-tex: true
+  pdf:
+    toc: false
+    fig-cap-location: bottom
+    tbl-cap-location: top
 editor: visual
 ---
 
