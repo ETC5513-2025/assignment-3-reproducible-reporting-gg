@@ -26,7 +26,7 @@ Pursuing a graduate degree abroad is a major life decision that often comes with
 
 **Data Import and Validation**
 
-This analysis based on `The Cost of International Education` dataset which was imported via `read_csv(here("data/International_Education_Costs.csv"))`.
+This analysis based on *The Cost of International Education* dataset which was imported via `read_csv(here("data/International_Education_Costs.csv"))`.
 
 ```{r import data}
 #| echo: false
@@ -38,19 +38,31 @@ library(here)
 
 # Read in dataset
 international_stu_cost <- read_csv(here( "data/International_Education_Costs.csv" ))
-
-# Define the key cost columns
-key_cols <- c(
-  "Tuition_USD", "Duration_Years", "Living_Cost_Index",
-  "Rent_USD", "Visa_Fee_USD", "Insurance_USD"
-)
-
-# Check each column’s class
-sapply(data[key_cols], function(col) class(col)[1])
-
 ```
 
-The dataset provides the following cost components — tuition, rent, living-cost index, visa fees, and insurance — all standardized to U.S. dollars and expressed as 2025 USD values across global universities. We then filtered for the Master of Computer Science records, verified that each component was numeric, and removed any rows with missing values in those fields.
+The *Cost of International Education* dataset provides five key cost components — tuition, rent, living-cost index, visa fees, and insurance — each standardized to U.S. dollars and expressed in 2025 values across global universities. We then filtered for the Master of Computer Science records, verified that each component was numeric, and confirmed there were no missing values in those fields.
+
+```{r verify dataset}
+#| echo: false
+#| warning: false
+#| message: false
+
+# Filter Master of Computer Science
+international_stu_cost |> filter( Program == "Computer Science",
+                                  Level == "Master")
+
+# Specify the cost columns
+cost_cols <- c(
+  "Tuition_USD", "Duration_Years", "Living_Cost_Index",
+  "Rent_USD", "Visa_Fee_USD",  "Insurance_USD"
+)
+
+# Check that each column’s type is numeric
+international_stu_cost |> summarise(across(all_of(cost_cols), ~ class(.)[1]))
+
+# Check if any missing in those columns
+international_stu_cost |> summarise(across(all_of(cost_cols), ~ sum(is.na(.))))
+```
 
 **Cost Component Calculation**
 
