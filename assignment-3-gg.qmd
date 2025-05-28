@@ -171,7 +171,7 @@ ratio_data_top <- cost_data |>
 # Monash Label
 monash_label <- ratio_data_top |>
   filter(University == "Monash University")
-ratio_plot <- ggplot(cost_data_top, 
+ratio_plot <- ggplot(ratio_data_top, 
                           aes(x = reorder(University, AffordabilityRatio),
                               y = AffordabilityRatio,
                               fill = University == "Monash University")) +
