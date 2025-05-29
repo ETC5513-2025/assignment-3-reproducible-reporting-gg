@@ -18,13 +18,11 @@ editor: visual
 
 ## Executive Summary
 
-This report evaluates whether a U.S. student, fully supported by their parents, can afford to study the Master of Computer Science program at Monash University. With an annual budget of USD 43,593.90, we analyze tuition, rent, living expenses, visa, and insurance fees. Our estimate shows a total annual cost of approximately USD 57,831.60—exceeding the budget by over USD 14,000. Without extra support such as scholarships or shared housing, Monash is not financially feasible under current assumptions.
+This report evaluates whether a U.S. student, fully supported by their parents, can afford to study the Master of Computer Science program at Monash University. With an annual budget of USD 42,355.90, we analyze tuition, rent, living expenses, visa, and insurance costs for the year 2025. The total estimated cost is USD 55,262, significantly exceeding the budget. Therefore, studying at Monash would impose financial pressure unless additional support such as scholarships or shared housing is available.
 
 ## Introduction
 
-Studying abroad can be a life-changing opportunity, but it also involves major financial planning. This report examines whether a U.S. student with full financial support from their parents can afford to study the Master of Computer Science at Monash University. The annual budget is set at USD 43,593.90, with no scholarships, savings, or part-time jobs assumed. We use a global dataset of Computer Science programs and isolate records related to Monash. Tuition is calculated from annualized program fees. Living costs are based on the Numbeo index, and monthly rent is multiplied over a year. Additional expenses such as visa and insurance are included. Total cost is compared against the student’s budget to evaluate affordability. The goal is to provide financial insights for future international students.
-
-## Methodology
+Studying abroad is a significant life decision that also requires thorough financial planning. This report explores whether a U.S. student with a fixed annual budget of USD 42,355.90 can afford to study the Master of Computer Science at Monash University. We assume no scholarships, savings, or part-time income. Using global datasets on tuition and living costs, we isolate Monash-specific data. Tuition is estimated at USD 21,400, while living costs are based on the Cost of Attendance data from NYU and Numbeo’s index for Melbourne. Rent is estimated at USD 1,700/month, significantly affecting affordability. Combined with visa and insurance, the total estimated cost reaches USD 55,262. The budget shortfall suggests financial infeasibility under current conditions. The aim is to offer financial insights for prospective students planning to study at Monash.Methodology
 
 **Data Import and Validation**
 
