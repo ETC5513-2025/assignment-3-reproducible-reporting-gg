@@ -8,30 +8,26 @@ format:
     title-slide: false   
 ---
 
+## Background
 
-## Can I Afford to Study at Monash?
+- Studying abroad offers new experiences and better education  
+- But high costs make it difficult for many families  
+- More students from Asia go to the U.S., U.K., or Australia  
+- Family income gaps make overseas study a luxury for some  
+- This report looks at how money affects decisions  
+  and how we can reduce financial barriers
 
-👤 A student from the United States  
-🎓 Master of Computer Science at Monash  
-💰 Budget: USD 42,355.90 per year  
-
-::: {.footnote style="margin-top: 2em;"}
-📌 *Studying abroad is exciting, but also financially challenging.*  
-This report explores whether the student’s budget is sufficient to afford tuition, rent, and living costs at Monash University in 2025.
-:::
 ---
 
-## The Answer
+## Problem Introduction
 
-- 🎓 Tuition (1 year): USD 21,400  
-- 🍜 Living: USD 12,912  
-- 🏠 Rent (single): USD 20,400  
-- 🛂 Visa + Insurance: USD 550
+👤 A student from the United States  
+🎓 Wants to study a Master of Computer Science at Monash University  
+💰 Annual budget: USD 42,355.90，fully supported by his parents
 
-**➡️ Total: USD 55,262**  
-**💰 Budget: USD 42,355.90**  
-**📉 Shortfall: USD 12,906**  
-**📊 Affordability Ratio: 0.771**
+📌 The question is:  
+Is this budget enough to pay for tuition, rent, and living costs  
+in Melbourne for one year?
 
-> Without support like scholarships, shared housing, or part-time work,  
-> the student may not be able to afford studying at Monash.
+This simple example helps us understand the real financial challenges faced by many international students.
+
