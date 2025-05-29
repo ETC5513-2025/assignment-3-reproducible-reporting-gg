@@ -181,19 +181,14 @@ All analyses and visualizations were executed in R using **tidyverse** package w
 -   @fig-affordability shows each university’s affordability ratio.
 -   @tbl-affordability summarizes the five most and least affordable Master of Computer Science programs.
 
-```{r fig-affordability, fig.height=16, fig.width=15}
+```{r fig-affordability, fig.height=17, fig.width=13}
 #| label: fig-affordability
-#| fig-cap: "Affordability Ratios for Master of Computer Science Programs by University"
+#| fig-cap: "Affordability Ratios for Master of Computer Science Programs by University in 2025"
 #| echo: false
 #| warning: false
 #| message: false
 
-# Prepare data 
 afford_plot <- affordability_ratio |>
-  group_by( University ) |>
-  summarise( AffordabilityRatio = mean( AffordabilityRatio, na.rm = TRUE), 
-             .groups = "drop") |>
-  arrange( AffordabilityRatio ) |>
   mutate(
     University = factor( University, levels = unique( University )),
     Highlight  = if_else( University == "Monash University", "Monash", "Other"))
@@ -206,49 +201,51 @@ ggplot(afford_plot, aes(x = University,
                                "Other" = "grey80")) +
   coord_flip() +
   geom_text(
-    data = filter(afford_plot, University == "Monash University"),
-    aes(label = "Monash University"),
-    hjust = -0.1,            # nudges label to the right of the bar
+    data = afford_plot |>
+      filter(University == "Monash University"),
+    aes(label = "Monash University", y = AffordabilityRatio),
+    hjust = -0.1,            
     color = "firebrick",
     fontface = "bold",
-    size = 3
+    size = 8
   ) +
+  geom_hline(yintercept = 1, 
+             linetype = "dashed", 
+             color = "darkblue", 
+             linewidth = 1) +
   labs(
-    title = "Affordability Ratios for Master of Computer Science Programs",
+    title = "Affordability Ratios for Master of Computer Science Programs in 2025",
     subtitle = "Based on 50% of projected 2025 U.S. median household income",
     x = "University",
-    y = "Affordability Ratio"
-  ) +
+    y = "Affordability Ratio" 
+    ) +
   theme_minimal() +
   theme(
-    axis.text.y = element_text(size = 7),
+    axis.text.y = element_text(size = 9),
     legend.position = "none"
-  )
+    )
 ```
 
 ```{r table-affordability}
 #| label: tbl-affordability
-#| tbl-cap: "Top five most and least affordable universities"
+#| tbl-cap: "Top 5 Most and Least Affordable Master of Computer Science Programs (2025 Budget)"
 #| echo: false
 #| warning: false
 #| message: false
 
-comparison_table <- affordability_ratio |>
-  arrange(desc(AffordabilityRatio)) |>
-  slice_head(n = 5) |>
-  mutate(Category = "Most Affordable") |>
-  bind_rows(
-    affordability_ratio  |>
-      arrange(AffordabilityRatio) |>
-      slice_head(n = 5) |>
-      mutate(Category = "Least Affordable")
-  ) |>
-  select(Category, University, AffordabilityRatio)
+summary_table <- afford_plot |>
+  arrange(desc( AffordabilityRatio )) |>
+  mutate(Rank = row_number()) |>
+  
+  # Get top 5 and bottom 5
+  filter(Rank <= 5 | Rank > n() - 5) |>
+  mutate(Category = if_else( Rank <= 5, 
+                             "Most Affordable", 
+                             "Least Affordable")) |>
+  select(Category, University, AffordabilityRatio, Rank)
 
-knitr::kable(
-  comparison_table,
-  caption = "Table 1: Top 5 Most and Least Affordable MCS Programs for U.S. Students in 2025"
-)
+# Print table
+knitr::kable( summary_table )
 ```
 
 ## Result
