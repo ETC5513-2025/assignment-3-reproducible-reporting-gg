@@ -3,7 +3,7 @@ title: "Assignment 3 - gg"
 author:
   - Nutchanok Saitin
   - TZU-HSUAN Yang
-  - Ruowei Li 
+  - Ruowei Li
 format:
   html:
     toc: false
@@ -18,122 +18,236 @@ editor: visual
 
 ## Executive Summary
 
-This report evaluates whether a U.S. student, fully supported by their parents, can afford to study the Master of Computer Science program at Monash University. With an annual budget of **USD 42,355.90**, we analyze tuition, rent, living expenses, visa, and insurance costs for the year 2025. The total estimated cost is **USD 55,262**, significantly exceeding the budget. Therefore, studying at Monash would impose financial pressure unless additional support such as scholarships or shared housing is available.
+This report investigates whether a U.S. student applying to the Master of Computer Science program at Monash University can afford the associated costs. The student’s parents are willing to provide full financial support, with an annual budget of USD 43,593.9. By calculating and comparing tuition, rent, visa, and insurance expenses over two years, we estimate the total cost at approximately USD 84,700. The results indicate that while the budget is sufficient, the choice may still impose noticeable financial pressure on the family.
 
 ## Introduction
 
-Studying abroad is a significant life decision that also requires thorough financial planning. This report explores whether a U.S. student with a fixed annual budget of **USD 42,355.90** can afford to study the Master of Computer Science at Monash University. We assume no scholarships, savings, or part-time income. Using global datasets on tuition and living costs, we isolate Monash-specific data. Tuition is estimated at **USD 21,400**, while living costs are based on the Cost of Attendance data from NYU and Numbeo’s index for Melbourne. Rent is estimated at **USD 1,700** per month, significantly affecting affordability. Combined with visa and insurance, the total estimated cost reaches **USD 55,262**. The budget shortfall suggests financial infeasibility under current conditions. The aim is to offer financial insights for prospective students planning to study at Monash.Methodology
+Pursuing a graduate degree abroad is a major life decision that often comes with substantial financial considerations. This report focuses on a student from the United States who plans to apply for the Master of Computer Science program at Monash University. The student’s tuition and living costs will be fully supported by their parents. The family has set a fixed annual budget of USD 43,593.9 for the two-year program. No scholarships, personal savings, or part-time work are assumed in this analysis. The key question is whether this budget allows the student to afford Monash without putting excessive financial pressure on the family. We analyze multiple cost components including tuition, accommodation, visa fees, and insurance. Data is sourced from a standardized international education cost dataset in USD. Monash University, located in Melbourne, is known for its strong computer science program but also relatively high costs. This report aims to assess affordability under the current assumptions and explore whether the choice is financially sustainable for the student’s family.
 
-**Data Import and Validation**
+## Methodology
 
-This analysis based on `The Cost of International Education` dataset which was imported via `read_csv(here("data/International_Education_Costs.csv"))`.
+**Data Source and Preparation**
+
+This analysis based on *The Cost of International Education* dataset which was imported via `read_csv(here("data/International_Education_Costs.csv"))`.
 
 ```{r import data}
 #| echo: false
-#| warning: true
+#| warning: false
 #| message: false
 
 library(tidyverse)
 library(here)
 
 # Read in dataset
-international_stu_cost <- read_csv(here("data/International_Education_Costs.csv"))
-
+international_stu_cost <- read_csv(here( "data/International_Education_Costs.csv" ))
 ```
 
-This dataset provides USD-standardized values for tuition, rent, living-cost index, visa fees, and insurance across universities, in 2025 globally. We filtered for the Master of Computer Science program at every university, verified that key cost fields were numeric, and removed any rows with missing values in those columns.
+The *Cost of International Education* dataset consists of tuition fees, rent, living-cost index, visa fees, insurance, and exchange rates, all standardized to U.S. dollars at the time of data collection (primarily 2023) across global universities. We filtered the dataset for the Master of Computer Science records and verified that all cost variables (`Tuition_USD`, `Duration_Years`, `Living_Cost_Index`, `Rent_USD`) were numeric, with no missing values in these fields. Duplicate university names were detected and resolved by aggregating to a single mean affordability ratio per institution.
 
-**Cost Component Calculation**
+```{r verify dataset}
+#| echo: false
+#| warning: false
+#| message: false
+#| output: false
 
-Each institution’s Total yearly Cost was calculated by summing four components:
+# Filter Master of Computer Science
+international_stu_cost |> filter( Program == "Computer Science",
+                                  Level == "Master" ) |>
+  head()
 
-**1. Annual Tuition** = Tuition_USD ÷ Duration_Years **2. Annual Rent** = Rent_USD × 12 **3. Other Living Cost** = \$15,000 × (Living_Cost_Index ÷ 100) **4. One-off Fees** = (Visa_Fee_USD + Insurance_USD) ÷ Duration_Years
+# Specify the cost columns
+cost_cols <- c(
+  "Tuition_USD", "Duration_Years", "Living_Cost_Index",
+  "Rent_USD", "Visa_Fee_USD",  "Insurance_USD"
+)
+
+# Check that each column’s type is numeric
+international_stu_cost |> summarise(across(all_of(cost_cols), ~ class(.)[1]))
+
+# Check if any missing in those columns
+international_stu_cost |> summarise(across(all_of(cost_cols), ~ sum(is.na(.))))
+
+# Check duplicate name in Master of Computer Science program 
+international_stu_cost |>
+  filter( Program == "Computer Science",
+          Level == "Master"
+          ) |>
+  count( University ) |>
+  filter( n > 1)
+```
+
+
+**Cost Projection and Component Calculation**
+
+To estimate affordability for 2025, all recurring cost components (tuition, rent, living expenses) were projected forward using a compound annual inflation rate of 4.75%[^Inf]. The projected cost for each component was computed as:
+
+[^Inf]: This rate reflects the IMF’s forecasts for advanced economies—2.6% for 2024 and 2.1% for 2025—since both Australia (Monash) and the United States are classified as advanced economies.
+$$
+\mathrm{ProjectCost}_{2025} \;=\; {TotalCost}_{2023} \times 1.0475
+$$
+
+Total Cost 2023 derived from summation of below costs:
+
+**1. Annual Tuition** = Tuition_USD ÷ Duration_Years\
+**2. Annual Rent** = Rent_USD × 12\
+**3. Other Living Cost** = \$17,736[^nyu] × (Living_Cost_Index ÷ 100)\
+
+**One-off Fees**: Visa and insurance costs were excluded from the primary analysis, as they accounted for less than 5% of total cost in 2023 and are policy-driven, unpredictable, and minor relative to recurring expenses.
+
+[^nyu]: Derived from NYU’s *Cost of Attendance (2024–25)* “Traditional Programs” table.\
+We took the 9-month total living cost (\$41,236 USD), subtracted Housing (\$23,588 USD)\
+and Health Insurance (\$4,346 USD), divided by 9, then annualized to 12 months: 
+$$
+\frac{\$41,236 - \$23,588 - \$4,346}{9} \times 12
+\;\approx\;\$17,736
+$$
 
 **Income Projection, Budget and Affordability Ratio**
 
-We sourced the 2023 U.S. median household income of \$80,160) and projected it to 2025 using a 2.8% compound growth rate: Average Household Income in 2025 = \$80,160 \* (1 + 0.028)\^2
+We obtained the 2023 U.S. median household income (\$80,160) from the U.S. Census Bureau (U.S. Census Bureau 2024) and projected it to 2025 using a compound annual growth rate of 2.8%[^cagr]:
 
-Assuming that each student will have half of median household income as their budget to make a comparison: Budget = Average Household Income in 2025 \* 0.5
+$$
+\mathrm{HouseholdIncome}_{2025} \;=\; \$80{,}160 \times (1 + 0.028)^2
+$$
 
-Affordability ratio was defined by: affordability ratio = student budget/cost per year ratio \> 1 will indicate that student budget can cover the annual cost.
+[^cagr]: Compound annual growth rate calculated from FRED series **MEHOINUSA646N** (Median Household Income in the United States), rising from \$62,637 in 2013 to \$80,610 in 2023:
+$$
+\left(\frac{80\,610}{62\,637}\right)^{1/10} - 1 \approx 0.028 \quad(2.8\%)
+$$
 
-**Analytical Environment**
+Assuming that each student can allocate 50 % of this projected income as their annual education budget:
 
-All calculation and visualization were executed in R using tidyverse package (which includes readr, dplyr, tidyr, ggplot2, tibble, purrr, et c.) and Quarto for reporting.
+$$
+\mathrm{StudentBudget}_{2025} \;=\; {HouseholdIncome}_{2025} \times 0.5
+$$
 
--   Figure 1 represent each university’s affordability ratio
--   Table 1 represent lists the top five most and least affordable programs.
+The affordability ratio is defined as: 
+
+$$
+\mathrm{AffordabilityRatio} \;=\; \frac{\mathrm{StudentBudget}_{2025}}{\mathrm{TotalYearlyCost}_{2025}}
+$$
+
+A ratio greater than 1 indicates that a U.S. student from median-income household could afford the first year at Monash or a comparable university in 2025.
 
 ```{r data calculation}
 #| echo: false
-#| warning: true
+#| warning: false
 #| message: false
 
-# 1. Calculate yearly costs
-master_comsci_costs <- international_stu_cost |>
+# 1. Calculate yearly costs in 2023 and check proportion of one-off fees
+master_comsci_2023 <- international_stu_cost |>
   filter( Program == "Computer Science",
-          Level == "Master") |>
+          Level == "Master"
+          ) |>
   mutate(
     annual_tuition = Tuition_USD / Duration_Years,
     annual_rent = Rent_USD * 12,
-    other_living_cost = ( Living_Cost_Index / 100 ) * 15000,
-    one_off_fees = Visa_Fee_USD + Insurance_USD, #Duration_Years,
-    total_yearly_costs = annual_tuition + annual_rent + other_living_cost + one_off_fees 
+    other_living_cost = ( Living_Cost_Index / 100 ) * 17736,
+    one_off_fees = Visa_Fee_USD + Insurance_USD,
+    Total_Yearly_Costs = annual_tuition + annual_rent + other_living_cost + one_off_fees,
+    One_off_fees_portion = one_off_fees / Total_Yearly_Costs
       ) |>
-  select(!c(Exchange_Rate, Insurance_USD, Visa_Fee_USD, Rent_USD, Living_Cost_Index, Tuition_USD, Duration_Years))
+  select(!c( Exchange_Rate, Insurance_USD, Visa_Fee_USD, Rent_USD, Living_Cost_Index, Tuition_USD, Duration_Years ))
 
-# 2. Project 2023 income to 2025 and define student budget
+# 2. Project 2023 costs to 2025 and define 2025 cost for each institution
+master_comsci_2025 <- master_comsci_2023 |>
+  mutate(
+    Total_2023_Costs = annual_tuition + annual_rent + other_living_cost,
+    Total_2025_Costs = Total_Yearly_Costs * 1.0475) |>
+  select(!c( annual_tuition,  annual_rent, other_living_cost, one_off_fees, Total_Yearly_Costs, One_off_fees_portion )
+         )
+    
+# 3. Project 2023 income to 2025 and define student budget
 base_income_2023    <- 80610   # from U.S. Census Bureau
 income_2025         <- base_income_2023 * (1 + 0.028)^2
-student_budget_2025 <- 0.5 * income_2025
+Student_Budget_2025 <- 0.5 * income_2025
 
-# 3. Summarise by university and compute affordability ratio
-affordability_ratio <- master_comsci_costs |>
+# 4. Summarise by university and compute affordability ratio
+affordability_ratio <- master_comsci_2025 |>
   mutate(
-    StudentBudget2025  = student_budget_2025,
-    AffordabilityRatio = StudentBudget2025 / total_yearly_costs
-  )
+    StudentBudget2025  = Student_Budget_2025,
+    AffordabilityRatio = StudentBudget2025 / Total_2025_Costs
+    ) |>
+  group_by( University ) |>
+  summarise( AffordabilityRatio = mean( AffordabilityRatio, na.rm = TRUE), 
+             .groups = "drop") |>
+  arrange( AffordabilityRatio )
 ```
 
-```{r fig-affordability}
+\newpage
+
+**Analytical Environment**
+
+All analyses and visualizations were executed in R using **tidyverse** package within a Quarto‐driven, reproducible workflow. Data import was handled by **readr**, and plotting by **ggplot2**, and tables were generated with **knitr**. All code is version‐controlled via Git. The final report was authored in Quarto and rendered to PDF using LaTeX.
+
+-   @fig-affordability shows each university’s affordability ratio.
+-   @tbl-affordability summarizes the five most and least affordable Master of Computer Science programs.
+
+```{r fig-affordability, fig.height=17, fig.width=13}
+#| label: fig-affordability
+#| fig-cap: "Affordability Ratios for Master of Computer Science Programs by University in 2025"
 #| echo: false
-#| warning: true
+#| warning: false
 #| message: false
 
-affordability_ratio |>
-  tail(30) |>
-  ggplot(aes(x = reorder(University, AffordabilityRatio) , y = AffordabilityRatio)) +
-    geom_col(fill = "steelblue") +
-    coord_flip() +
-    labs(
-      title    = "Affordability Ratios for Master of Computer Science Programs",
-      subtitle = "Based on 50% of projected 2025 U.S. median household income",
-      x        = "University",
-      y        = "Affordability Ratio"
-    ) 
+afford_plot <- affordability_ratio |>
+  mutate(
+    University = factor( University, levels = unique( University )),
+    Highlight  = if_else( University == "Monash University", "Monash", "Other"))
+
+ggplot(afford_plot, aes(x = University, 
+                        y = AffordabilityRatio, 
+                        fill = Highlight)) +
+  geom_col() +
+  scale_fill_manual(values = c("Monash" = "firebrick", 
+                               "Other" = "grey80")) +
+  coord_flip() +
+  geom_text(
+    data = afford_plot |>
+      filter(University == "Monash University"),
+    aes(label = "Monash University", y = AffordabilityRatio),
+    hjust = -0.1,            
+    color = "firebrick",
+    fontface = "bold",
+    size = 8
+  ) +
+  geom_hline(yintercept = 1, 
+             linetype = "dashed", 
+             color = "darkblue", 
+             linewidth = 1) +
+  labs(
+    title = "Affordability Ratios for Master of Computer Science Programs in 2025",
+    subtitle = "Based on 50% of projected 2025 U.S. median household income",
+    x = "University",
+    y = "Affordability Ratio" 
+    ) +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 9),
+    legend.position = "none"
+    )
 ```
 
 ```{r table-affordability}
+#| label: tbl-affordability
+#| tbl-cap: "Top 5 Most and Least Affordable Master of Computer Science Programs (2025 Budget)"
 #| echo: false
-#| warning: true
+#| warning: false
 #| message: false
 
-comparison_table <- affordability_ratio |>
-  arrange(desc(AffordabilityRatio)) |>
-  slice_head(n = 5) |>
-  mutate(Category = "Most Affordable") |>
-  bind_rows(
-    affordability_ratio  |>
-      arrange(AffordabilityRatio) |>
-      slice_head(n = 5) |>
-      mutate(Category = "Least Affordable")
-  ) |>
-  select(Category, University, AffordabilityRatio)
+summary_table <- afford_plot |>
+  arrange(desc( AffordabilityRatio )) |>
+  mutate(Rank = row_number()) |>
+  
+  # Get top 5 and bottom 5
+  filter(Rank <= 5 | Rank > n() - 5) |>
+  mutate(Category = if_else( Rank <= 5, 
+                             "Most Affordable", 
+                             "Least Affordable")) |>
+  select(Category, University, AffordabilityRatio, Rank)
 
-knitr::kable(
-  comparison_table,
-  caption = "Table 1: Top 5 Most and Least Affordable MCS Programs for U.S. Students in 2025"
-)
+# Print table
+knitr::kable( summary_table )
 ```
 
 ## Result
