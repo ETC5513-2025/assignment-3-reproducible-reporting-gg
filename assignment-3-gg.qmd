@@ -272,8 +272,7 @@ cost_data <- international_stu_cost |>
   # columns for calcuation
   mutate(AnnualLiving_Cost = ( Living_Cost_Index / 100 ) * 17736,
          Tuition_PerYear = (Tuition_USD * (1 + 0.0475)) / Duration_Years,
-         OneTime_fee = (Visa_Fee_USD + Insurance_USD) / Duration_Years,
-         Total_Cost = AnnualLiving_Cost + Tuition_PerYear + Rent_USD * (1 + 0.0475) * 12 + OneTime_fee,
+         Total_Cost = AnnualLiving_Cost + Tuition_PerYear + Rent_USD * (1 + 0.0475) * 12,
          AffordabilityRatio = student_budget_2025 / Total_Cost )
 
 # Plot with top 30 of living cost
@@ -300,7 +299,7 @@ ratio_plot <- ggplot(ratio_data_top,
 print(ratio_plot)
 ```
 
-@fig-ratio shows the bottom 30 universities with the lowest affordability ratio for applying a master degree of Computer Science in 2025. Monash University ranks in the **bottom range**, with a ratio is **0.744** for one academic year. Although its tuition fee is moderate, relatively high rent and living expenses in Melbourne contribute to the overall cost. These results highlight the role of rent and living expenses form the full financial burden of international education.
+@fig-ratio shows the bottom 30 universities with the lowest affordability ratio for applying a master degree of Computer Science in 2025. Monash University ranks in the **bottom range**, with a ratio is **0.751** for one academic year. Although its tuition fee is moderate, relatively high rent and living expenses in Melbourne contribute to the overall cost. These results highlight the role of rent and living expenses form the full financial burden of international education.
 
 ## Conclusion
 
