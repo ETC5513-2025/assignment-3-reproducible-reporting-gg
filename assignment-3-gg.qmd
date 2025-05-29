@@ -179,10 +179,10 @@ ratio_plot <- ggplot(ratio_data_top,
   geom_text(data = monash_label,
             aes(label = paste0(AffordabilityRatio)),
             # show the ratio number
-            hjust = -0.1, colour = "black", size = 3) +
+            hjust = 1.1, colour = "black", size = 3) +
   coord_flip() +
   labs(x = "University", y = "Affordability Ratio") +
-  theme_minimal() +
+  theme_minimal(base_size = 10) +
   theme(legend.position = "none", # hide the fill logic
     axis.text.y = element_text(size = 7)) #adjust the font
 print(ratio_plot)
