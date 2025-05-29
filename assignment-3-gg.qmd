@@ -5,12 +5,14 @@ author:
   - TZU-HSUAN Yang
   - Ruowei Li
 format:
-  pdf:
-    toc: true
-    number-sections: true
+  html:
+    toc: false
     fig-cap-location: bottom
     tbl-cap-location: top
-    keep-tex: true
+  pdf:
+    toc: false
+    fig-cap-location: bottom
+    tbl-cap-location: top
 editor: visual
 ---
 
@@ -83,6 +85,7 @@ To estimate affordability for 2025, all recurring cost components (tuition, rent
 $$
 \mathrm{ProjectCost}_{2025} \;=\; {TotalCost}_{2023} \times 1.0475
 $$
+
 Total Cost 2023 derived from summation of below costs:
 
 **1. Annual Tuition** = Tuition_USD ÷ Duration_Years\
@@ -98,7 +101,6 @@ $$
 \frac{\$41,236 - \$23,588 - \$4,346}{9} \times 12
 \;\approx\;\$17,736
 $$
-
 
 **Income Projection, Budget and Affordability Ratio**
 
@@ -250,58 +252,62 @@ knitr::kable( summary_table )
 
 ## Result
 
-The following figure compares the total estimated cost of pursuing a Master of Computer Science across selected universities
+The following figure compares the estimated affordability ratio of applying a Master of Computer Science across selected universities
 
 ```{r}
-#| label: fig-total-cost
-#| fig-cap: "Top 30 Estimated Total Cost of Master of Computer Science"
+#| label: fig-ratio
+#| fig-cap: "Bottom 30 Estimated Affordability Ratio of Master of Computer Science"
 #| warning: false
 #| error: false
 #| echo: false
 
-library(tidyverse)
-# Load the dataset
-cost_data <- read_csv("data/International_Education_Costs.csv")
+# Number defined in Methodology
+base_income_2023    <- 80610   # from U.S. Census Bureau
+income_2025         <- base_income_2023 * (1 + 0.028)^2
+student_budget_2025 <- 0.5 * income_2025
 
 # Filter the data
-cost_data <- cost_data |>
+cost_data <- international_stu_cost |>
   filter(Level == "Master" & Program == "Computer Science") |>
   # columns for calcuation
-  mutate(Monthly_Living_Cost = Living_Cost_Index / 100 * 1709.2,
-         Tuition_PerYear = Tuition_USD / Duration_Years,
-         Total_Cost = Tuition_PerYear + (Rent_USD + Monthly_Living_Cost) * 12 + Visa_Fee_USD + Insurance_USD)
+  mutate(AnnualLiving_Cost = ( Living_Cost_Index / 100 ) * 17736,
+         Tuition_PerYear = (Tuition_USD * (1 + 0.0475)) / Duration_Years,
+         OneTime_fee = (Visa_Fee_USD + Insurance_USD) / Duration_Years,
+         Total_Cost = AnnualLiving_Cost + Tuition_PerYear + Rent_USD * (1 + 0.0475) * 12 + OneTime_fee,
+         AffordabilityRatio = student_budget_2025 / Total_Cost )
 
 # Plot with top 30 of living cost
-cost_data_top <- cost_data |>
-  arrange(desc(Total_Cost)) |>
+ratio_data_top <- cost_data |>
+  arrange(AffordabilityRatio) |>
   slice_head(n = 30)
 # Monash Label
-monash_label <- cost_data_top |>
+monash_label <- ratio_data_top |>
   filter(University == "Monash University")
-total_cost_plot <- ggplot(cost_data_top, 
-                          aes(x = reorder(University, Total_Cost),
-                              y = Total_Cost,
+ratio_plot <- ggplot(ratio_data_top, 
+                          aes(x = reorder(University, AffordabilityRatio),
+                              y = AffordabilityRatio,
                               fill = University == "Monash University")) +
   geom_col()+
   geom_text(data = monash_label,
-            aes(label = paste0("USD ", Total_Cost)),
-            hjust = -0.1, colour = "black", size = 3.5) +
+            aes(label = paste0(AffordabilityRatio)),
+            # show the ratio number
+            hjust = 1.1, colour = "black", size = 3) +
   coord_flip() +
-  labs(x = "University", y = "Total Estimated Cost (USD)") +
-  theme_minimal() +
-  theme(legend.position = "none",
-    axis.text.y = element_text(size = 7))
-print(total_cost_plot)
+  labs(x = "University", y = "Affordability Ratio") +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "none", # hide the fill logic
+    axis.text.y = element_text(size = 7)) #adjust the font
+print(ratio_plot)
 ```
 
-@fig-total-cost shows the top 30 universities with the highest estimated total cost for completing a Master of Computer Science. Monash University ranks in the **upper-middle range**, with a total cost is **USD 57,831.6** for one academic year. Although its tuition fee is moderate, relatively high rent and living expenses in Melbourne contribute to the overall cost. These results highlight the role of rent and living expenses form the full financial burden of international education.
+@fig-ratio shows the bottom 30 universities with the lowest affordability ratio for applying a master degree of Computer Science in 2025. Monash University ranks in the **bottom range**, with a ratio is **0.744** for one academic year. Although its tuition fee is moderate, relatively high rent and living expenses in Melbourne contribute to the overall cost. These results highlight the role of rent and living expenses form the full financial burden of international education.
 
 ## Conclusion
 
-This report evaluated the total cost of a USA student with a budget of **USD 43,593.90** studying a Master of Computer Science at Monash University. By analyzing tuition fees, rent, living expenses, visa, and insurance costs across global universities which have master of computer science.
+This report evaluated the total cost of a USA student with a budget of **USD 42,355.90** plan to apply a master degree of Computer Science at Monash University in 2025. By analyzing tuition fees, rent, living expenses, visa, and insurance costs for year 2025 (adjust by inflation rate) across global universities which have master program of computer science.
 
-Our analysis shows that Monash University’s tuition fee of a year is **USD 21,400** which is relatively moderate compared to U.S. and U.K. universities. The cost of living index in Melbourne (72.8) and Numbeo’s estimated monthly expenses (USD 1,244.3) support the city’s living cost as a reasonably affordable location for international students. The living cost of a year will be estimated as **14,931.6** However, monthly rent of USD 1,700 significantly increases the total cost over the an year duration, reaching an estimated **USD 20,400** for single living per year. Combined with **visa (USD 450)** and **insurance fees (USD 650)**, the total cost is **USD 57831.6**, which is **well above** the budget.
+Our analysis shows that Monash University’s tuition fee of a year is **USD 22,416.5** which is relatively moderate when compared to U.S. and U.K. universities. Based on the cost of living index in Melbourne (72.8) and the [Cost of Attendance](https://bulletins.nyu.edu/graduate/public-service/cost-attendance/cost-attendance.pdf) which released by New York University (NYU), the estimated monthly living cost is **USD 1,076** and the annual living cost will be estimated as **USD 12,912**. This is also relatively moderate compared to U.S. and U.K. universities, though it still acts as an major part of total expense. However, monthly rent of USD 1,780.75 significantly increases the total cost and decreases the affordability ratio which reaching an estimated **USD 21,369** for single living per year. Combined with **visa (USD 225/year)** and **insurance fees (USD 325/year)**, the total cost is **USD 57,247.5** which has a gap **USD 14,891.6** between budget, and the affordability raio is **0.744**, which is **well above**.
 
-Therefore, under current assumptions, pursuing this degree at Monash would **likely impose a financial burden** unless supplementary funding options such as scholarships, shared housing, or part-time employment are secured.
+Therefore, under current assumptions, applying this degree at Monash would **likely impose a financial burden** unless supplementary funding options such as scholarships, shared housing, or part-time employment are secured.
 
 We recommend that international students conduct a detailed cost breakdown when planning to study abroad, considering not only tuition fee but also living and setup costs. University like Monash remain attractive due to their academic reputation and moderate tuition fee, but total affordability depends on each student’s financial context.
