@@ -1,5 +1,52 @@
 ---
 title: "assignment-3-gg-slides"
-format: html
+format:
+  revealjs:
+    incremental: true
+    theme: simple
 ---
 
+## Conclusion and Recommendations  {.columns .smaller}
+
+::: {.column width="55%"}
+
+#### **Conclusion**
+
+- Total cost: USD 57,247.50
+
+- Budget: USD 42,355.90
+
+- affordability ratio: 0.744
+
+- Major cost drivers:
+
+  - **Tuition fee:** USD 22,416.50
+
+  - **Rent:** USD 21,369.00
+
+  - **Living cost:** USD 12,912.00
+  
+  - **Visa + Insurance:** USD 550/year
+  
+:::
+
+::: {.column width="45%"}
+
+#### **Recommendations**
+
+- 💰 Seek **scholarships** or **financial aid**
+
+- 🏡 Consider **shared housing** or lower-rent alternatives
+
+- ❗ Explore **part-time job** if allowed under visa conditions
+
+:::
+
+
+::: {.fragment}
+
+Monash remains attractive for its academic quality and moderate tuition fee, but the total cost of living in Melbourne is a critical factor for budget-constrained students.😭
+
+:::
+
+---
