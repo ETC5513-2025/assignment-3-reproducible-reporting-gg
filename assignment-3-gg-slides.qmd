@@ -6,7 +6,6 @@ format:
     theme: simple
 ---
 
-<<<<<<< HEAD
 ## Results Figure  {.smaller}
 
 
@@ -75,7 +74,7 @@ print(ratio_plot)
 - These highlights how **non-tuition costs drive affordability issues** for international students.
 
 ---
-=======
+
 ## Conclusion and Recommendations  {.columns .smaller}
 
 ::: {.column width="55%"}
@@ -120,4 +119,4 @@ Monash remains attractive for its academic quality and moderate tuition fee, but
 :::
 
 ---
->>>>>>> conclusion
+
