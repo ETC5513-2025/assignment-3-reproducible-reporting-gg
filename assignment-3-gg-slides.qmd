@@ -18,12 +18,6 @@ format:
 #| error: false
 #| echo: false
 
-library(tidyverse)
-library(here)
-
-# Read in dataset
-international_stu_cost <- read_csv(here("data/International_Education_Costs.csv"))
-
 # Number defined in Methodology
 base_income_2023    <- 80610   # from U.S. Census Bureau
 income_2025         <- base_income_2023 * (1 + 0.028)^2
@@ -35,8 +29,7 @@ cost_data <- international_stu_cost |>
   # columns for calcuation
   mutate(AnnualLiving_Cost = ( Living_Cost_Index / 100 ) * 17736,
          Tuition_PerYear = (Tuition_USD * (1 + 0.0475)) / Duration_Years,
-         OneTime_fee = (Visa_Fee_USD + Insurance_USD) / Duration_Years,
-         Total_Cost = AnnualLiving_Cost + Tuition_PerYear + Rent_USD * (1 + 0.0475) * 12 + OneTime_fee,
+         Total_Cost = AnnualLiving_Cost + Tuition_PerYear + Rent_USD * (1 + 0.0475) * 12,
          AffordabilityRatio = student_budget_2025 / Total_Cost )
 
 # Plot with top 30 of living cost
@@ -67,7 +60,7 @@ print(ratio_plot)
 
 ## Results  {.smaller}
 
-- Monash University ranks in the **lower tier**, with an affordability ratio of **0.744**.
+- Monash University ranks in the **lower tier**, with an affordability ratio of **0.751**.
 
 - While tuition fee is moderate, **high rent (USD 21,369/year)** and **living expenses (USD 12,912/year)** raise the total cost and make affordability ratio falling.
 
@@ -81,11 +74,11 @@ print(ratio_plot)
 
 #### **Conclusion**
 
-- Total cost: USD 57,247.50
+- Total cost: USD 56,697.50
 
 - Budget: USD 42,355.90
 
-- affordability ratio: 0.744
+- affordability ratio: 0.751
 
 - Major cost drivers:
 
@@ -94,8 +87,6 @@ print(ratio_plot)
   - **Rent:** USD 21,369.00
 
   - **Living cost:** USD 12,912.00
-  
-  - **Visa + Insurance:** USD 550/year
   
 :::
 
