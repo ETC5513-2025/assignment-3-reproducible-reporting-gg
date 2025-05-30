@@ -6,10 +6,14 @@
 <script src="assignment-3-gg-slides_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="assignment-3-gg-slides_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="assignment-3-gg-slides_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="assignment-3-gg-slides_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="assignment-3-gg-slides_files/libs/quarto-html/quarto-syntax-highlighting-de84f8d6bb715db06a919283c2d1e787.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.42">
 
-  <title>assignment-3-gg-slides</title>
+  <meta name="author" content="Nutchanok Saitin">
+  <meta name="author" content="TZU-HSUAN Yang">
+  <meta name="author" content="Ruowei Li">
+  <meta name="dcterms.date" content="2025-05-30">
+  <title>Affordability of Master of Computer Science Programs for U.S. Students in 2025</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -28,7 +32,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="assignment-3-gg-slides_files/libs/revealjs/dist/theme/quarto-8f3eebe07241f08526c91a7e9cbef8fd.css">
+  <link rel="stylesheet" href="assignment-3-gg-slides_files/libs/revealjs/dist/theme/quarto-d58ca6e55452da357bd4996cb6e3aa10.css">
   <link href="assignment-3-gg-slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="assignment-3-gg-slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="assignment-3-gg-slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -125,7 +129,44 @@
   <div class="reveal">
     <div class="slides">
 
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Affordability of Master of Computer Science Programs for U.S. Students in 2025</h1>
 
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Nutchanok Saitin 
+</div>
+</div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+TZU-HSUAN Yang 
+</div>
+</div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Ruowei Li 
+</div>
+</div>
+</div>
+
+  <p class="date">2025-05-30</p>
+</section><section id="TOC">
+<nav role="doc-toc"> 
+<h2 id="toc-title">Table of contents</h2>
+<ul>
+<li><a href="#/background" id="/toc-background">Background</a></li>
+<li><a href="#/problem-introduction" id="/toc-problem-introduction">Problem Introduction</a></li>
+<li><a href="#/dataset-description" id="/toc-dataset-description">Dataset Description</a></li>
+<li><a href="#/methods-cost-projection" id="/toc-methods-cost-projection">Methods: Cost Projection</a></li>
+<li><a href="#/methods-budget-affordability-calculation" id="/toc-methods-budget-affordability-calculation">Methods: Budget &amp; Affordability Calculation</a></li>
+<li><a href="#/methods-analytical-environment" id="/toc-methods-analytical-environment">Methods: Analytical Environment</a></li>
+<li><a href="#/results-figure" id="/toc-results-figure">Results Figure</a></li>
+<li><a href="#/results" id="/toc-results">Results</a></li>
+<li><a href="#/conclusion-and-recommendations" id="/toc-conclusion-and-recommendations">Conclusion and Recommendations</a></li>
+</ul>
+</nav>
+</section>
 <section id="background" class="slide level2">
 <h2>Background</h2>
 <ul>
@@ -150,6 +191,185 @@ and how we can reduce financial barriers</li>
 Is this budget enough to pay for tuition, rent, and living costs<br>
 in Melbourne for one year?</p>
 <p>This simple example helps us understand the real financial challenges faced by many international students.</p>
+</section>
+<section id="dataset-description" class="slide level2">
+<h2>Dataset Description</h2>
+<p>📂 <strong>Data Source &amp; Preparation:</strong></p>
+<div style="font-size: 0.60em">
+<ul>
+<li>Source: <em>Cost of International Education</em> dataset (USD, 2023)</li>
+<li>Filtered for Master of Computer Science programs</li>
+<li>Checked for missing values and correct types</li>
+<li>Duplicates resolved by averaging affordability ratios</li>
+</ul>
+</div>
+<div class="fragment">
+<p>🗝️ <strong>Key Variables</strong></p>
+<div style="font-size: 0.60em">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Variable name</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Program duration</td>
+<td>Total program length</td>
+<td>Years</td>
+</tr>
+<tr class="even">
+<td>Tuition</td>
+<td>Total program tuition cost</td>
+<td>USD</td>
+</tr>
+<tr class="odd">
+<td>Rent</td>
+<td>Monthly rent</td>
+<td>USD/Month</td>
+</tr>
+<tr class="even">
+<td>Living cost index</td>
+<td>Standardized cost of living</td>
+<td>Index</td>
+</tr>
+<tr class="odd">
+<td>Visa fees</td>
+<td>Student visa fee</td>
+<td>USD</td>
+</tr>
+<tr class="even">
+<td>Insurance</td>
+<td>Annual insurance fee</td>
+<td>USD</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="methods-cost-projection" class="slide level2">
+<h2>Methods: Cost Projection</h2>
+<div class="fragment">
+<div style="font-size: 0.70em">
+<ul>
+<li>🎓 Tuition and rent projected to 2025 using 4.75% annual inflation (IMF forecasts for advanced economies)
+<ul>
+<li>Annual Tuition = Tuition_USD / Duration_Years × 1.0475</li>
+<li>Annual Rent = Rent_USD × 12 × 1.0475</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<div style="font-size: 0.70em">
+<ul>
+<li>🛒 Other Living Cost not projected, but adjusted by each university’s local living cost index
+<ul>
+<li>Living Cost = $17,736 × (Living_Cost_Index / 100)</li>
+<li>Baseline $17,736 from NYU’s 2024–25 Cost of Attendance (excludes housing and health insurance)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<div style="font-size: 0.70em">
+<ul>
+<li>🛃 Visa and insurance excluded (minor, variable)</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="methods-budget-affordability-calculation" class="slide level2">
+<h2>Methods: Budget &amp; Affordability Calculation</h2>
+<div class="fragment">
+<div style="font-size: 0.70em">
+<ul>
+<li>2023 U.S. median household income ($80,160, U.S. Census Bureau) projected to 2025 with 2.8% compund annual growth</li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<div style="font-size: 0.70em">
+<ul>
+<li>50% of projected income assumed available for education</li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<div style="font-size: 0.70em">
+<ul>
+<li>Affordability Ratio = StudentBudget2025 / TotalYearlyCost2025</li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<div style="font-size: 0.70em">
+<p>👉 Ratio &gt; 1 means affordable for a U.S. median-income household</p>
+</div>
+</div>
+</section>
+<section id="methods-analytical-environment" class="slide level2">
+<h2>Methods: Analytical Environment</h2>
+<div class="column" style="width:55%;">
+<div style="font-size: 0.70em">
+<ul>
+<li>Analysis in R (tidyverse: readr, ggplot2, knitr)</li>
+<li>Reproducible workflow with <strong>Quarto</strong></li>
+<li>Version control: <strong>Git</strong></li>
+<li>Report rendered to PDF using LaTeX</li>
+</ul>
+</div>
+</div><div class="column" style="width:45%;">
+<div class="fragment">
+<img data-src="images/fig-affordability-1.png" style="width:77.0%">
+<div style="font-size:0.4em; text-align: center; margin-top: 0.1em;">
+<p>Example Figure: Affordability Ratios for Master of Computer Science Programs by University in 2025</p>
+</div>
+</div>
+</div></section>
+<section id="results-figure" class="slide level2 smaller">
+<h2>Results Figure</h2>
+<p><a href="#/fig-ratio" class="quarto-xref">Figure&nbsp;1</a> compares the <strong>bottom 30 universities</strong> in affordability ratio for Master of Computer Science programs in 2025.</p>
+
+<img data-src="assignment-3-gg-slides_files/figure-revealjs/fig-ratio-1.png" width="960" class="r-stretch quarto-figure-center" id="fig-ratio"><p class="caption">
+Figure&nbsp;1: Bottom 30 Estimated Affordability Ratio of Master of Computer Science
+</p></section>
+<section id="results" class="slide level2 smaller">
+<h2>Results</h2>
+<ul>
+<li><p>Monash University ranks in the <strong>lower tier</strong>, with an affordability ratio of <strong>0.751</strong>.</p></li>
+<li><p>While tuition fee is moderate, <strong>high rent (USD 21,369/year)</strong> and <strong>living expenses (USD 12,912/year)</strong> raise the total cost and make affordability ratio falling.</p></li>
+<li><p>These highlights how <strong>non-tuition costs drive affordability issues</strong> for international students.</p></li>
+</ul>
+</section>
+<section id="conclusion-and-recommendations" class="slide level2 smaller">
+<h2>Conclusion and Recommendations</h2>
+<div class="column" style="width:55%;">
+<h3 id="conclusion"><strong>Conclusion</strong></h3>
+<ul>
+<li><p>Total cost: USD 56,697.50</p></li>
+<li><p>Budget: USD 42,355.90</p></li>
+<li><p>affordability ratio: 0.751</p></li>
+<li><p>Major cost drivers:</p>
+<ul>
+<li><p><strong>Tuition fee:</strong> USD 22,416.50</p></li>
+<li><p><strong>Rent:</strong> USD 21,369.00</p></li>
+<li><p><strong>Living cost:</strong> USD 12,912.00</p></li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:45%;">
+<h3 id="recommendations"><strong>Recommendations</strong></h3>
+<ul>
+<li><p>💰 Seek <strong>scholarships</strong> or <strong>financial aid</strong></p></li>
+<li><p>🏡 Consider <strong>shared housing</strong> or lower-rent alternatives</p></li>
+<li><p>❗ Explore <strong>part-time job</strong> if allowed under visa conditions</p></li>
+</ul>
+</div><div class="fragment">
+<p>Monash remains attractive for its academic quality and moderate tuition fee, but the total cost of living in Melbourne is a critical factor for budget-constrained students.😭</p>
+</div>
 
 </section>
     </div>
@@ -367,6 +587,82 @@ in Melbourne for one year?</p>
         ]
       });
     </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
