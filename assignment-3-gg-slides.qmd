@@ -241,7 +241,7 @@ print(ratio_plot)
 
 ::: {.column width="55%"}
 
-### **Conclusion**
+### Conclusion
 
 - Total cost: USD 56,697.50
 
@@ -261,7 +261,7 @@ print(ratio_plot)
 
 ::: {.column width="45%"}
 
-### **Recommendations**
+### Recommendations
 
 - 💰 Seek **scholarships** or **financial aid**
 
