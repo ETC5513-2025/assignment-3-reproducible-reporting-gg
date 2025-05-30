@@ -15,9 +15,6 @@ format:
     highlight-style: github       
 ---
 
----
-
-
 ## Background
 
 - Studying abroad offers new experiences and better education  
@@ -45,8 +42,7 @@ This simple example helps us understand the real financial challenges faced by m
 
 ## Dataset Description
 
-::: {.fragment}
-**Data Source & Preparation:**  
+📂 **Data Source & Preparation:**  
 
 <div style="font-size: 0.60em">
 
@@ -56,10 +52,9 @@ This simple example helps us understand the real financial challenges faced by m
 - Duplicates resolved by averaging affordability ratios
 
 </div>
-:::
 
 ::: {.fragment}
-**Key Variables**
+🗝️ **Key Variables**
 
 <div style="font-size: 0.60em">
 
@@ -80,19 +75,21 @@ This simple example helps us understand the real financial challenges faced by m
 ## Methods: Cost Projection
 
 ::: {.fragment}
-<div style="font-size: 0.60em">
+<div style="font-size: 0.70em">
 
-- Tuition and rent projected to 2025 using 4.75% annual inflation (IMF forecasts for advanced economies)
+
+- 🎓 Tuition and rent projected to 2025 using 4.75% annual inflation (IMF forecasts for advanced economies)
   + Annual Tuition = Tuition_USD / Duration_Years × 1.0475
   + Annual Rent = Rent_USD × 12 × 1.0475
 
 </div>  
 :::
 
+
 ::: {.fragment}
-<div style="font-size: 0.60em">
+<div style="font-size: 0.70em">
   
-- Other Living Cost not projected, but adjusted by each university’s local living cost index
+- 🛒 Other Living Cost not projected, but adjusted by each university’s local living cost index
   + Living Cost = \$17,736 × (Living_Cost_Index / 100)
   + Baseline \$17,736 from NYU’s 2024–25 Cost of Attendance (excludes housing and health insurance)
 
@@ -100,8 +97,8 @@ This simple example helps us understand the real financial challenges faced by m
 :::
 
 ::: {.fragment}
-<div style="font-size: 0.60em">
-- Visa and insurance excluded (minor, variable)
+<div style="font-size: 0.70em">
+- 🛃 Visa and insurance excluded (minor, variable)
 
 </div>  
 :::
@@ -111,7 +108,7 @@ This simple example helps us understand the real financial challenges faced by m
 ## Methods: Budget & Affordability Calculation
 
 ::: {.fragment}
-<div style="font-size: 0.60em">
+<div style="font-size: 0.70em">
 
 - 2023 U.S. median household income (\$80,160, U.S. Census Bureau) projected to 2025 with 2.8% compund annual growth
 
@@ -119,7 +116,7 @@ This simple example helps us understand the real financial challenges faced by m
 :::
 
 ::: {.fragment}
-<div style="font-size: 0.60em">
+<div style="font-size: 0.70em">
 
 - 50% of projected income assumed available for education
 
@@ -127,16 +124,16 @@ This simple example helps us understand the real financial challenges faced by m
 :::
 
 ::: {.fragment}
-<div style="font-size: 0.60em">
+<div style="font-size: 0.70em">
 
 - Affordability Ratio = StudentBudget2025 / TotalYearlyCost2025
 </div>  
 :::
 
 ::: {.fragment}
-<div style="font-size: 0.60em">
+<div style="font-size: 0.70em">
 
-- Ratio > 1 means affordable for a U.S. median-income household
+👉 Ratio > 1 means affordable for a U.S. median-income household
 
 </div>
 :::
@@ -147,8 +144,7 @@ This simple example helps us understand the real financial challenges faced by m
 
 ::: {.column width="55%"}
 
-::: {.fragment}
-<div style="font-size: 0.60em">
+<div style="font-size: 0.70em">
 
 - Analysis in R (tidyverse: readr, ggplot2, knitr)
 - Reproducible workflow with **Quarto**
@@ -158,18 +154,13 @@ This simple example helps us understand the real financial challenges faced by m
 </div>
 :::
 
-:::
-
 ::: {.column width=45%}
 
 ::: {.fragment}
 
 ![](images/fig-affordability-1.png){width=77%}
-<br>
 <div style="font-size:0.4em; text-align: center; margin-top: 0.1em;">
-
 Example Figure: Affordability Ratios for Master of Computer Science Programs by University in 2025
-
 </div>
 
 :::
@@ -189,6 +180,12 @@ Example Figure: Affordability Ratios for Master of Computer Science Programs by 
 #| warning: false
 #| error: false
 #| echo: false
+
+library(tidyverse)
+library(here)
+
+# Read in dataset
+international_stu_cost <- read_csv(here( "data/International_Education_Costs.csv" ))
 
 # Number defined in Methodology
 base_income_2023    <- 80610   # from U.S. Census Bureau
@@ -240,11 +237,11 @@ print(ratio_plot)
 
 ---
 
-## Conclusion and Recommendations  {.columns .smaller}
+## Conclusion and Recommendations  {.smaller}
 
 ::: {.column width="55%"}
 
-#### **Conclusion**
+### **Conclusion**
 
 - Total cost: USD 56,697.50
 
@@ -264,7 +261,7 @@ print(ratio_plot)
 
 ::: {.column width="45%"}
 
-#### **Recommendations**
+### **Recommendations**
 
 - 💰 Seek **scholarships** or **financial aid**
 
@@ -282,5 +279,5 @@ Monash remains attractive for its academic quality and moderate tuition fee, but
 :::
 
 
----
+
 
