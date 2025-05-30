@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 title: "Affordability of Master of Computer Science Programs for U.S. Students in 2025"
 author:
   - Nutchanok Saitin
@@ -14,6 +15,32 @@ format:
     transition: fade               
     highlight-style: github       
 ---
+
+---
+
+
+## Background
+
+- Studying abroad offers new experiences and better education  
+- But high costs make it difficult for many families  
+- More students from Asia go to the U.S., U.K., or Australia  
+- Family income gaps make overseas study a luxury for some  
+- This report looks at how money affects decisions  
+  and how we can reduce financial barriers
+
+---
+
+## Problem Introduction
+
+👤 A student from the United States  
+🎓 Wants to study a Master of Computer Science at Monash University  
+💰 Annual budget: USD 42,355.90，fully supported by his parents
+
+📌 The question is:  
+Is this budget enough to pay for tuition, rent, and living costs  
+in Melbourne for one year?
+
+This simple example helps us understand the real financial challenges faced by many international students.
 
 ---
 
@@ -114,6 +141,7 @@ format:
 
 </div>
 :::
+
 ---
 
 ## Methods: Analytical Environment
@@ -148,4 +176,112 @@ Example Figure: Affordability Ratios for Master of Computer Science Programs by 
 :::
 
 :::
+
+---
+
+## Results Figure  {.smaller}
+
+
+@fig-ratio compares the **bottom 30 universities** in affordability ratio for Master of Computer Science programs in 2025.
+
+```{r}
+#| label: fig-ratio
+#| fig-cap: "Bottom 30 Estimated Affordability Ratio of Master of Computer Science"
+#| warning: false
+#| error: false
+#| echo: false
+
+# Number defined in Methodology
+base_income_2023    <- 80610   # from U.S. Census Bureau
+income_2025         <- base_income_2023 * (1 + 0.028)^2
+student_budget_2025 <- 0.5 * income_2025
+
+# Filter the data
+cost_data <- international_stu_cost |>
+  filter(Level == "Master" & Program == "Computer Science") |>
+  # columns for calcuation
+  mutate(AnnualLiving_Cost = ( Living_Cost_Index / 100 ) * 17736,
+         Tuition_PerYear = (Tuition_USD * (1 + 0.0475)) / Duration_Years,
+         Total_Cost = AnnualLiving_Cost + Tuition_PerYear + Rent_USD * (1 + 0.0475) * 12,
+         AffordabilityRatio = student_budget_2025 / Total_Cost )
+
+# Plot with top 30 of living cost
+ratio_data_top <- cost_data |>
+  arrange(AffordabilityRatio) |>
+  slice_head(n = 30)
+# Monash Label
+monash_label <- ratio_data_top |>
+  filter(University == "Monash University")
+ratio_plot <- ggplot(ratio_data_top, 
+                          aes(x = reorder(University, AffordabilityRatio),
+                              y = AffordabilityRatio,
+                              fill = University == "Monash University")) +
+  geom_col()+
+  geom_text(data = monash_label,
+            aes(label = paste0(AffordabilityRatio)),
+            # show the ratio number
+            hjust = 1.1, colour = "black", size = 3) +
+  coord_flip() +
+  labs(x = "University", y = "Affordability Ratio") +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "none", # hide the fill logic
+    axis.text.y = element_text(size = 7)) #adjust the font
+print(ratio_plot)
+```
+
+---
+
+## Results  {.smaller}
+
+- Monash University ranks in the **lower tier**, with an affordability ratio of **0.751**.
+
+- While tuition fee is moderate, **high rent (USD 21,369/year)** and **living expenses (USD 12,912/year)** raise the total cost and make affordability ratio falling.
+
+- These highlights how **non-tuition costs drive affordability issues** for international students.
+
+---
+
+## Conclusion and Recommendations  {.columns .smaller}
+
+::: {.column width="55%"}
+
+#### **Conclusion**
+
+- Total cost: USD 56,697.50
+
+- Budget: USD 42,355.90
+
+- affordability ratio: 0.751
+
+- Major cost drivers:
+
+  - **Tuition fee:** USD 22,416.50
+
+  - **Rent:** USD 21,369.00
+
+  - **Living cost:** USD 12,912.00
+  
+:::
+
+::: {.column width="45%"}
+
+#### **Recommendations**
+
+- 💰 Seek **scholarships** or **financial aid**
+
+- 🏡 Consider **shared housing** or lower-rent alternatives
+
+- ❗ Explore **part-time job** if allowed under visa conditions
+
+:::
+
+
+::: {.fragment}
+
+Monash remains attractive for its academic quality and moderate tuition fee, but the total cost of living in Melbourne is a critical factor for budget-constrained students.😭
+
+:::
+
+
+---
 

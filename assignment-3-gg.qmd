@@ -238,8 +238,7 @@ cost_data <- international_stu_cost |>
   # columns for calcuation
   mutate(AnnualLiving_Cost = ( Living_Cost_Index / 100 ) * 17736,
          Tuition_PerYear = (Tuition_USD * (1 + 0.0475)) / Duration_Years,
-         OneTime_fee = (Visa_Fee_USD + Insurance_USD) / Duration_Years,
-         Total_Cost = AnnualLiving_Cost + Tuition_PerYear + Rent_USD * (1 + 0.0475) * 12 + OneTime_fee,
+         Total_Cost = AnnualLiving_Cost + Tuition_PerYear + Rent_USD * (1 + 0.0475) * 12,
          AffordabilityRatio = student_budget_2025 / Total_Cost )
 
 # Plot with top 30 of living cost
@@ -266,13 +265,13 @@ ratio_plot <- ggplot(ratio_data_top,
 print(ratio_plot)
 ```
 
-@fig-ratio shows the bottom 30 universities with the lowest affordability ratio for applying a master degree of Computer Science in 2025. Monash University ranks in the **bottom range**, with a ratio is **0.744** for one academic year. Although its tuition fee is moderate, relatively high rent and living expenses in Melbourne contribute to the overall cost. These results highlight the role of rent and living expenses form the full financial burden of international education.
+@fig-ratio shows the bottom 30 universities with the lowest affordability ratio for applying a master degree of Computer Science in 2025. Monash University ranks in the **bottom range**, with a ratio is **0.751** for one academic year. Although its tuition fee is moderate, relatively high rent and living expenses in Melbourne contribute to the overall cost. These results highlight the role of rent and living expenses form the full financial burden of international education.
 
 ## Conclusion
 
 This report evaluated the total cost of a USA student with a budget of **USD 42,355.90** plan to apply a master degree of Computer Science at Monash University in 2025. By analyzing tuition fees, rent, living expenses, visa, and insurance costs for year 2025 (adjust by inflation rate) across global universities which have master program of computer science.
 
-Our analysis shows that Monash University’s tuition fee of a year is **USD 22,416.5** which is relatively moderate when compared to U.S. and U.K. universities. Based on the cost of living index in Melbourne (72.8) and the [Cost of Attendance](https://bulletins.nyu.edu/graduate/public-service/cost-attendance/cost-attendance.pdf) which released by New York University (NYU), the estimated monthly living cost is **USD 1,076** and the annual living cost will be estimated as **USD 12,912**. This is also relatively moderate compared to U.S. and U.K. universities, though it still acts as an major part of total expense. However, monthly rent of USD 1,780.75 significantly increases the total cost and decreases the affordability ratio which reaching an estimated **USD 21,369** for single living per year. Combined with **visa (USD 225/year)** and **insurance fees (USD 325/year)**, the total cost is **USD 57,247.5** which has a gap **USD 14,891.6** between budget, and the affordability raio is **0.744**, which is **well above**.
+Our analysis shows that Monash University’s tuition fee of a year is **USD 22,416.5** which is relatively moderate when compared to U.S. and U.K. universities. Based on the cost of living index in Melbourne (72.8) and the [Cost of Attendance](https://bulletins.nyu.edu/graduate/public-service/cost-attendance/cost-attendance.pdf) which released by New York University (NYU), the estimated monthly living cost is **USD 1,076** and the annual living cost will be estimated as **USD 12,912**. This is also relatively moderate compared to U.S. and U.K. universities, though it still acts as an major part of total expense. However, monthly rent of USD 1,780.75 significantly increases the total cost and decreases the affordability ratio which reaching an estimated **USD 21,369** for single living per year. The total cost is **USD 56,697.5** which has a gap **USD 14,341.6** between budget, and the affordability raio is **0.751**, which is **well above**.
 
 Therefore, under current assumptions, applying this degree at Monash would **likely impose a financial burden** unless supplementary funding options such as scholarships, shared housing, or part-time employment are secured.
 
