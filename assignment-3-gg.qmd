@@ -76,23 +76,25 @@ international_stu_cost |>
 
 To estimate 2025 costs:
 
-- Tuition and rent were projected using a 4.75% annual inflation rate (IMF forecast).
-- The Other Living Cost baseline ($17,736) was taken from NYU’s 2024–25 Cost of Attendance for a master’s student (excluding housing and health insurance), and not projected further. This value was multiplied by each university’s living cost index (as a percentage of NYU’s baseline).
+-   Tuition and rent were projected using a 4.75% annual inflation rate (IMF forecast).
 
-- **Formulas:**
-  + Annual Tuition (2025): Tuition_USD (2023) / Duration_Years × 1.0475
-  + Annual Rent (2025): Rent_USD (2023) × 12 × 1.0475
-  + Other Living Cost (2025): $17,736 × (Living_Cost_Index / 100)
-  
-- Visa and insurance fees were excluded from the main analysis as they were minor and variable.
+-   The Other Living Cost baseline (\$17,736) was taken from NYU’s 2024–25 Cost of Attendance for a master’s student (excluding housing and health insurance), and not projected further. This value was multiplied by each university’s living cost index (as a percentage of NYU’s baseline).
+
+-   **Formulas:**
+
+    -   Annual Tuition (2025): Tuition_USD (2023) / Duration_Years × 1.0475
+    -   Annual Rent (2025): Rent_USD (2023) × 12 × 1.0475
+    -   Other Living Cost (2025): \$17,736 × (Living_Cost_Index / 100)
+
+-   Visa and insurance fees were excluded from the main analysis as they were minor and variable.
 
 **Income Projection, Budget and Affordability Ratio**
 
-The 2023 U.S. median household income ($80,160), obtained from U.S. Census Bureau data, was projected to 2025 at a 2.8% compound annual growth rate. We assumed 50% of projected income could be allocated to education:
+The 2023 U.S. median household income (\$80,160), obtained from U.S. Census Bureau data, was projected to 2025 at a 2.8% compound annual growth rate. We assumed 50% of projected income could be allocated to education:
 
-- Student Budget (2025): Projected Income × 0.5
-- Affordability Ratio: Student Budget / Total Yearly Cost\
-  (Ratio > 1 indicates affordability for a median U.S. household.)
+-   Student Budget (2025): Projected Income × 0.5
+-   Affordability Ratio: Student Budget / Total Yearly Cost\
+    (Ratio \> 1 indicates affordability for a median U.S. household.)
 
 ```{r data calculation}
 #| echo: false
@@ -251,10 +253,6 @@ ratio_plot <- ggplot(ratio_data_top,
                               y = AffordabilityRatio,
                               fill = University == "Monash University")) +
   geom_col()+
-  geom_text(data = monash_label,
-            aes(label = paste0(AffordabilityRatio)),
-            # show the ratio number
-            hjust = 1.1, colour = "black", size = 3) +
   coord_flip() +
   labs(x = "University", y = "Affordability Ratio") +
   theme_minimal(base_size = 10) +
