@@ -1,11 +1,11 @@
 ---
-title: "Assignment 3 - gg"
+title: "Affordability of Master of Computer Science Programs for U.S. Students in 2025"
 author:
   - Nutchanok Saitin
   - TZU-HSUAN Yang
   - Ruowei Li
 format:
-  pdf:
+ pdf:
     toc: true
     fig-cap-location: bottom
     tbl-cap-location: top
@@ -14,7 +14,7 @@ editor: visual
 
 ## Executive Summary
 
-This report investigates whether a U.S. student applying to the Master of Computer Science program at Monash University can afford the associated costs. The student’s parents are willing to provide full financial support, with an annual budget of USD 43,593.9. By calculating and comparing tuition, rent, visa, and insurance expenses over two years, we estimate the total cost at approximately USD 84,700. The results indicate that while the budget is sufficient, the choice may still impose noticeable financial pressure on the family.
+This report investigates whether a U.S. student applying to the Master of Computer Science program at Monash University can afford the associated costs. The student’s parents are willing to provide full financial support, with an annual budget of USD 43,593.9. By calculating and comparing tuition, rent and living cost expenses over two years, we estimate the total cost at approximately USD 84,700. The results indicate that while the budget is sufficient, the choice may still impose noticeable financial pressure on the family.
 
 ## Introduction
 
@@ -86,7 +86,7 @@ To estimate 2025 costs:
     -   Annual Rent (2025): Rent_USD (2023) × 12 × 1.0475
     -   Other Living Cost (2025): \$17,736 × (Living_Cost_Index / 100)
 
--   Visa and insurance fees were excluded from the main analysis as they were minor and variable.
+-   Visa and insurance fees were excluded from the main analysis as they were minor (<5%) and variable.
 
 **Income Projection, Budget and Affordability Ratio**
 
@@ -206,8 +206,8 @@ summary_table <- afford_plot |>
   mutate(Rank = row_number()) |>
   
   # Get top 5 and bottom 5
-  filter(Rank <= 5 | Rank > n() - 5) |>
-  mutate(Category = if_else( Rank <= 5, 
+  filter(Rank <= 30 | Rank > n() - 30) |>
+  mutate(Category = if_else( Rank <= 30, 
                              "Most Affordable", 
                              "Least Affordable")) |>
   select(Category, University, AffordabilityRatio, Rank)
@@ -218,7 +218,7 @@ knitr::kable( summary_table )
 
 ## Result
 
-The following figure compares the estimated affordability ratio of applying a Master of Computer Science across selected universities
+The following figure compares the estimated affordability ratio of applying a Master of Computer Science across selected universities.
 
 ```{r}
 #| label: fig-ratio
