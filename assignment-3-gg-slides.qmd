@@ -9,8 +9,6 @@ format:
   revealjs:
     theme: solarized
     slide-number: true
-    toc: true
-    toc-depth: 2
     transition: fade               
     highlight-style: github       
 ---
@@ -56,14 +54,14 @@ This simple example helps us understand the real financial challenges faced by m
 ::: {.fragment}
 🗝️ **Key Variables**
 
-<div style="font-size: 0.60em">
+<div style="font-size: 0.6em">
 
-| Variable name      | Description                    | Unit       |
+| Variable           | Description                    | Unit       |
 |--------------------|--------------------------------|------------|
 | Program duration   | Total program length           | Years      |
 | Tuition            | Total program tuition cost     | USD        |
 | Rent               | Monthly rent                   | USD/Month  |
-| Living cost index  | Standardized cost of living    | Index      |
+| Living cost index  | Standardized cost of living<br>| Index      |
 | Visa fees          | Student visa fee               | USD        |
 | Insurance          | Annual insurance fee           | USD        |
 
@@ -213,10 +211,6 @@ ratio_plot <- ggplot(ratio_data_top,
                               y = AffordabilityRatio,
                               fill = University == "Monash University")) +
   geom_col()+
-  geom_text(data = monash_label,
-            aes(label = paste0(AffordabilityRatio)),
-            # show the ratio number
-            hjust = 1.1, colour = "black", size = 3) +
   coord_flip() +
   labs(x = "University", y = "Affordability Ratio") +
   theme_minimal(base_size = 10) +
@@ -261,6 +255,8 @@ print(ratio_plot)
 
 ::: {.column width="45%"}
 
+::: {.fragment}
+
 ### Recommendations
 
 - 💰 Seek **scholarships** or **financial aid**
@@ -271,6 +267,7 @@ print(ratio_plot)
 
 :::
 
+:::
 
 ::: {.fragment}
 
