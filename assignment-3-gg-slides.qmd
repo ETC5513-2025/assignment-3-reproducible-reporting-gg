@@ -19,7 +19,7 @@ format:
 
 ## Dataset Description
 
-:::{.fragment}
+::: {.fragment}
 **Data Source & Preparation:**  
 
 <div style="font-size: 0.60em">
@@ -32,7 +32,7 @@ format:
 </div>
 :::
 
-:::{.fragment}
+::: {.fragment}
 **Key Variables**
 
 <div style="font-size: 0.60em">
@@ -51,49 +51,79 @@ format:
 
 ---
 
-## Methods
+## Methods: Cost Projection
 
-:::{.fragment}
-**Cost Projection**  
-
+::: {.fragment}
 <div style="font-size: 0.60em">
 
 - Tuition and rent projected to 2025 using 4.75% annual inflation (IMF forecasts for advanced economies)
   + Annual Tuition = Tuition_USD / Duration_Years × 1.0475
   + Annual Rent = Rent_USD × 12 × 1.0475
+
+</div>  
+:::
+
+::: {.fragment}
+<div style="font-size: 0.60em">
   
 - Other Living Cost not projected, but adjusted by each university’s local living cost index
   + Living Cost = \$17,736 × (Living_Cost_Index / 100)
   + Baseline \$17,736 from NYU’s 2024–25 Cost of Attendance (excludes housing and health insurance)
-  
-- Visa and insurance excluded (minor, variable)
 
-</div>
+</div>  
 :::
 
-:::{.fragment}
-**Budget & Affordability Calculation**  
-
+::: {.fragment}
 <div style="font-size: 0.60em">
+- Visa and insurance excluded (minor, variable)
 
-- 2023 U.S. median household income (\$80,160, U.S. Census Bureau) projected to 2025 with 2.8% compound annual growth
-- 50% of projected income assumed available for education
-- Affordability Ratio = Student Budget (2025) / Total Yearly Cost (2025)
-- Ratio > 1 means affordable for a U.S. median-income household
-
-</div>
+</div>  
 :::
 
 ---
 
-## Methods (Cont’d)
+## Methods: Budget & Affordability Calculation
 
-:::{.fragment}
-**Analytical Environment**  
-
+::: {.fragment}
 <div style="font-size: 0.60em">
 
-- Analysis in **R** (tidyverse: readr, ggplot2, knitr)
+- 2023 U.S. median household income (\$80,160, U.S. Census Bureau) projected to 2025 with 2.8% compund annual growth
+
+</div>  
+:::
+
+::: {.fragment}
+<div style="font-size: 0.60em">
+
+- 50% of projected income assumed available for education
+
+</div>  
+:::
+
+::: {.fragment}
+<div style="font-size: 0.60em">
+
+- Affordability Ratio = StudentBudget2025 / TotalYearlyCost2025
+</div>  
+:::
+
+::: {.fragment}
+<div style="font-size: 0.60em">
+
+- Ratio > 1 means affordable for a U.S. median-income household
+
+</div>
+:::
+---
+
+## Methods: Analytical Environment
+
+::: {.column width="55%"}
+
+::: {.fragment}
+<div style="font-size: 0.60em">
+
+- Analysis in R (tidyverse: readr, ggplot2, knitr)
 - Reproducible workflow with **Quarto**
 - Version control: **Git**
 - Report rendered to PDF using LaTeX
@@ -101,98 +131,21 @@ format:
 </div>
 :::
 
----
+:::
 
-## Methods (Cont’d)
+::: {.column width=45%}
 
-**Example Figure**
+::: {.fragment}
 
-```{r fig-affordability, fig.height=17, fig.width=13}
-#| fig-cap: "<span style='font-size:0.8em;'> Affordability Ratios for Master of Computer Science Programs by University in 2025</span>"
-#| fig-width: 10
-#| fig-height: 15
-#| echo: false
-#| warning: false
-#| message: false
+![](images/fig-affordability-1.png){width=77%}
+<br>
+<div style="font-size:0.4em; text-align: center; margin-top: 0.1em;">
 
-library(tidyverse)
-library(here)
+Example Figure: Affordability Ratios for Master of Computer Science Programs by University in 2025
 
-# Read in dataset
-international_stu_cost <- read_csv(here( "data/International_Education_Costs.csv" ))
+</div>
 
-# 1. Calculate yearly costs in 2023 and check proportion of one-off fees
-master_comsci_2023 <- international_stu_cost |>
-  filter( Program == "Computer Science",
-          Level == "Master"
-          ) |>
-  mutate(
-    annual_tuition = Tuition_USD / Duration_Years,
-    annual_rent = Rent_USD * 12,
-    other_living_cost = ( Living_Cost_Index / 100 ) * 17736,
-    one_off_fees = Visa_Fee_USD + Insurance_USD,
-    Total_Yearly_Costs = annual_tuition + annual_rent + other_living_cost + one_off_fees,
-    One_off_fees_portion = one_off_fees / Total_Yearly_Costs
-      ) |>
-  select(!c( Exchange_Rate, Insurance_USD, Visa_Fee_USD, Rent_USD, Living_Cost_Index, Tuition_USD, Duration_Years ))
+:::
 
-# 2. Project 2023 costs to 2025 and define 2025 cost for each institution
-master_comsci_2025 <- master_comsci_2023 |>
-  mutate(
-    Total_2023_Costs = annual_tuition + annual_rent,
-    Total_2025_Costs = (Total_2023_Costs * 1.0475) + other_living_cost
-    ) |>
-  select(!c( annual_tuition,  annual_rent, other_living_cost, one_off_fees, Total_Yearly_Costs, One_off_fees_portion )
-         )
-    
-# 3. Project 2023 income to 2025 and define student budget
-base_income_2023    <- 80610   # from U.S. Census Bureau
-income_2025         <- base_income_2023 * (1 + 0.028)^2
-Student_Budget_2025 <- 0.5 * income_2025
+:::
 
-# 4. Summarise by university and compute affordability ratio
-affordability_ratio <- master_comsci_2025 |>
-  mutate(
-    StudentBudget2025  = Student_Budget_2025,
-    AffordabilityRatio = StudentBudget2025 / Total_2025_Costs
-    ) |>
-  group_by( University ) |>
-  summarise( AffordabilityRatio = mean( AffordabilityRatio, na.rm = TRUE), 
-             .groups = "drop") |>
-  arrange( AffordabilityRatio )
-
-afford_plot <- affordability_ratio |>
-  mutate(
-    University = factor( University, levels = unique( University )),
-    Highlight  = if_else( University == "Monash University", "Monash", "Other"))
-
-ggplot(afford_plot, aes(x = University, 
-                        y = AffordabilityRatio, 
-                        fill = Highlight)) +
-  geom_col() +
-  scale_fill_manual(values = c("Monash" = "firebrick", 
-                               "Other" = "grey80")) +
-  coord_flip() +
-  geom_text(
-    data = afford_plot |>
-      filter(University == "Monash University"),
-    aes(label = "Monash University", y = AffordabilityRatio),
-    hjust = -0.1,            
-    color = "firebrick",
-    fontface = "bold",
-    size = 10
-  ) +
-  geom_hline(yintercept = 1, 
-             linetype = "dashed", 
-             color = "darkblue", 
-             linewidth = 1) +
-  labs(
-    x = "University",
-    y = "Affordability Ratio" 
-    ) +
-  theme_minimal() +
-  theme(
-    axis.text.y = element_text(size = 9),
-    legend.position = "none"
-    )
-```
