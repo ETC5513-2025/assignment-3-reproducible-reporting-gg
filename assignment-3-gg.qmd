@@ -93,9 +93,8 @@ To estimate 2025 costs:
 The 2023 U.S. median household income ($80,160), obtained from U.S. Census Bureau data, was projected to 2025 at a 2.8% compound annual growth rate. We assumed 50% of projected income could be allocated to education:
 
 - Student Budget (2025): Projected Income × 0.5
-- Affordability Ratio: Student Budget / Total Yearly Cost
-
-A ratio greater than 1 indicates that a U.S. student from median-income household could afford the first year at Monash or a comparable university in 2025.
+- Affordability Ratio: Student Budget / Total Yearly Cost\
+  (Ratio > 1 indicates affordability for a median U.S. household.)
 
 ```{r data calculation}
 #| echo: false
@@ -145,7 +144,7 @@ affordability_ratio <- master_comsci_2025 |>
 
 **Analytical Environment**
 
-All analyses and visualizations were performed in R using the **tidyverse** within a Quarto-driven workflow. Data import used **readr**, plotting was performed with **ggplot2**, and tables were generated using **knitr**. All code was version-controlled with Git, and the report was rendered to PDF using LaTeX.
+All analyses were performed in R (tidyverse, readr, ggplot2, knitr) using a Quarto-driven workflow, with Git for version control and report rendering via LaTeX.
 
 -   @fig-affordability shows each university’s affordability ratio.
 -   @tbl-affordability summarizes the five most and least affordable Master of Computer Science programs.
