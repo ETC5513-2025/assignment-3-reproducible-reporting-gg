@@ -76,43 +76,39 @@ international_stu_cost |>
   filter( n > 1)
 ```
 
-
 **Cost Projection and Component Calculation**
 
-To estimate affordability for 2025, all recurring cost components (tuition, rent, living expenses) were projected forward using a compound annual inflation rate of 4.75%[^Inf]. The projected cost for each component was computed as:
+To estimate affordability for 2025, all recurring cost components (tuition, rent, living expenses) were projected forward using a compound annual inflation rate of 4.75%[^1]. The projected cost for each component was computed as:
 
-[^Inf]: This rate reflects the IMF’s forecasts for advanced economies—2.6% for 2024 and 2.1% for 2025—since both Australia (Monash) and the United States are classified as advanced economies.
-$$
-\mathrm{ProjectCost}_{2025} \;=\; {TotalCost}_{2023} \times 1.0475
-$$
+[^1]: This rate reflects the IMF’s forecasts for advanced economies—2.6% for 2024 and 2.1% for 2025—since both Australia (Monash) and the United States are classified as advanced economies. $$
+    \mathrm{ProjectCost}_{2025} \;=\; {TotalCost}_{2023} \times 1.0475
+    $$
 
 Total Cost 2023 derived from summation of below costs:
 
 **1. Annual Tuition** = Tuition_USD ÷ Duration_Years\
 **2. Annual Rent** = Rent_USD × 12\
-**3. Other Living Cost** = \$17,736[^nyu] × (Living_Cost_Index ÷ 100)\
+**3. Other Living Cost** = \$17,736[^2] × (Living_Cost_Index ÷ 100)\
+
+[^2]: Derived from NYU’s *Cost of Attendance (2024–25)* “Traditional Programs” table.\
+    We took the 9-month total living cost (\$41,236 USD), subtracted Housing (\$23,588 USD)\
+    and Health Insurance (\$4,346 USD), divided by 9, then annualized to 12 months: $$
+    \frac{\$41,236 - \$23,588 - \$4,346}{9} \times 12
+    \;\approx\;\$17,736
+    $$
 
 **One-off Fees**: Visa and insurance costs were excluded from the primary analysis, as they accounted for less than 5% of total cost in 2023 and are policy-driven, unpredictable, and minor relative to recurring expenses.
 
-[^nyu]: Derived from NYU’s *Cost of Attendance (2024–25)* “Traditional Programs” table.\
-We took the 9-month total living cost (\$41,236 USD), subtracted Housing (\$23,588 USD)\
-and Health Insurance (\$4,346 USD), divided by 9, then annualized to 12 months: 
-$$
-\frac{\$41,236 - \$23,588 - \$4,346}{9} \times 12
-\;\approx\;\$17,736
-$$
-
 **Income Projection, Budget and Affordability Ratio**
 
-We obtained the 2023 U.S. median household income (\$80,160) from the U.S. Census Bureau (U.S. Census Bureau 2024) and projected it to 2025 using a compound annual growth rate of 2.8%[^cagr]:
+We obtained the 2023 U.S. median household income (\$80,160) from the U.S. Census Bureau (U.S. Census Bureau 2024) and projected it to 2025 using a compound annual growth rate of 2.8%[^3]:
+
+[^3]: Compound annual growth rate calculated from FRED series **MEHOINUSA646N** (Median Household Income in the United States), rising from \$62,637 in 2013 to \$80,610 in 2023: $$
+    \left(\frac{80\,610}{62\,637}\right)^{1/10} - 1 \approx 0.028 \quad(2.8\%)
+    $$
 
 $$
 \mathrm{HouseholdIncome}_{2025} \;=\; \$80{,}160 \times (1 + 0.028)^2
-$$
-
-[^cagr]: Compound annual growth rate calculated from FRED series **MEHOINUSA646N** (Median Household Income in the United States), rising from \$62,637 in 2013 to \$80,610 in 2023:
-$$
-\left(\frac{80\,610}{62\,637}\right)^{1/10} - 1 \approx 0.028 \quad(2.8\%)
 $$
 
 Assuming that each student can allocate 50 % of this projected income as their annual education budget:
@@ -121,7 +117,7 @@ $$
 \mathrm{StudentBudget}_{2025} \;=\; {HouseholdIncome}_{2025} \times 0.5
 $$
 
-The affordability ratio is defined as: 
+The affordability ratio is defined as:
 
 $$
 \mathrm{AffordabilityRatio} \;=\; \frac{\mathrm{StudentBudget}_{2025}}{\mathrm{TotalYearlyCost}_{2025}}
