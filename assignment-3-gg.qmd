@@ -25,7 +25,7 @@ Pursuing a graduate degree abroad is a major life decision that often comes with
 
 **Data Source and Preparation**
 
-Analysis is based on the *Cost of International Education* dataset, imported via
+Analysis is based on the *Cost of International Education* dataset [@kaggle], imported via
 
 `read_csv(here("data/International_Education_Costs.csv"))`.
 
