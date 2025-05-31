@@ -6,9 +6,15 @@ author:
   - Ruowei Li
 format:
  pdf:
+    pdf-engine: xelatex
     toc: true
-    fig-cap-location: bottom
-    tbl-cap-location: top
+bibliography: bib/references.bib
+csl: bib/apa.csl
+
+nocite:
+  - tidyverse
+  - here
+  
 editor: visual
 ---
 
@@ -76,9 +82,9 @@ international_stu_cost |>
 
 To estimate 2025 costs:
 
--   Tuition and rent were projected using a 4.75% annual inflation rate (IMF forecast).
+-   Tuition and rent were projected using a 4.75% forecast annual inflation rate [@inflation].
 
--   The Other Living Cost baseline (\$17,736) was taken from NYU’s 2024–25 Cost of Attendance for a master’s student (excluding housing and health insurance), and not projected further. This value was multiplied by each university’s living cost index (as a percentage of NYU’s baseline).
+-   As this dataset use New York City as the baseline cost, the Other Living Cost baseline of \$17,736 was taken from Cost of Attendance for a master’s student [@cost], excluding housing and health insurance. It is not projected further as it covers to year 2025. This value was multiplied by each university’s living cost index.
 
 -   **Formulas:**
 
@@ -90,7 +96,7 @@ To estimate 2025 costs:
 
 **Income Projection, Budget and Affordability Ratio**
 
-The 2023 U.S. median household income (\$80,160), obtained from U.S. Census Bureau data, was projected to 2025 at a 2.8% compound annual growth rate. We assumed 50% of projected income could be allocated to education:
+The 2023 U.S. median household income of \$80,160 retreived from U.S. Census Bureau [@2023income], was projected to 2025 at a 2.8% compound annual growth rate [@cagr]. We assumed 50% of projected income could be allocated to education:
 
 -   Student Budget (2025): Projected Income × 0.5
 -   Affordability Ratio: Student Budget / Total Yearly Cost\
@@ -144,7 +150,7 @@ affordability_ratio <- master_comsci_2025 |>
 
 **Analytical Environment**
 
-All analyses were performed in R (tidyverse, readr, ggplot2, knitr) using a Quarto-driven workflow, with Git for version control and report rendering via LaTeX.
+All analyses were performed in R (tidyverse [@tidyverse]: readr, ggplot2, knitr and here[@here]) using a Quarto-driven workflow, with Git for version control and report rendering via LaTeX.
 
 -   @fig-affordability shows each university’s affordability ratio.
 -   @tbl-affordability summarizes the five most and least affordable Master of Computer Science programs.
@@ -272,3 +278,5 @@ Our analysis shows that Monash University’s tuition fee of a year is **USD 22,
 Therefore, under current assumptions, applying this degree at Monash would **likely impose a financial burden** unless supplementary funding options such as scholarships, shared housing, or part-time employment are secured.
 
 We recommend that international students conduct a detailed cost breakdown when planning to study abroad, considering not only tuition fee but also living and setup costs. University like Monash remain attractive due to their academic reputation and moderate tuition fee, but total affordability depends on each student’s financial context.
+
+## References
