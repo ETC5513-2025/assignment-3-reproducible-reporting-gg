@@ -10,11 +10,6 @@ format:
     toc: true
 bibliography: bib/references.bib
 csl: bib/apa.csl
-
-nocite:
-  - tidyverse
-  - here
-  
 editor: visual
 ---
 
@@ -30,7 +25,9 @@ Pursuing a graduate degree abroad is a major life decision that often comes with
 
 **Data Source and Preparation**
 
-This analysis based on *The Cost of International Education* dataset, imported via `read_csv(here("data/International_Education_Costs.csv"))`.
+Analysis is based on the *Cost of International Education* dataset, imported via
+
+`read_csv(here("data/International_Education_Costs.csv"))`.
 
 ```{r import data}
 #| echo: false
@@ -44,7 +41,7 @@ library(here)
 international_stu_cost <- read_csv(here( "data/International_Education_Costs.csv" ))
 ```
 
-The dataset provides program duration, tuition, rent, living-cost index, visa fees and insurance, all standardized to U.S. dollars (mainly from 2023). We filtered for Master of Computer Science programs and confirmed all key cost variables were numeric with no missing values. Duplicates in university names were resolved by averaging affordability ratios.
+It provides program duration, tuition, rent, living cost index, visa fees and insurance (all in 2023 USD). We filtered for Master of Computer Science programs, confirmed all key cost variables were numeric with no missing values, and resolved duplicate university names by averaging affordability ratios.
 
 ```{r verify dataset}
 #| echo: false
@@ -80,11 +77,9 @@ international_stu_cost |>
 
 **Cost Projection and Component Calculation**
 
-To estimate 2025 costs:
+-   **Tuition and rent:** Projected with a 4.75% forecast annual inflation rate [@inflation].
 
--   Tuition and rent were projected using a 4.75% forecast annual inflation rate [@inflation].
-
--   As this dataset use New York City as the baseline cost, the Other Living Cost baseline of \$17,736 was taken from Cost of Attendance for a master’s student [@cost], excluding housing and health insurance. It is not projected further as it covers to year 2025. This value was multiplied by each university’s living cost index.
+-   **Other Living Cost:** Using New York as the baseline (cost index = 100), a value of $17,736 for a master’s student (excluding housing and insurance; @cost) was applied to 2025 using each university’s living cost index.
 
 -   **Formulas:**
 
@@ -92,11 +87,11 @@ To estimate 2025 costs:
     -   Annual Rent (2025): Rent_USD (2023) × 12 × 1.0475
     -   Other Living Cost (2025): \$17,736 × (Living_Cost_Index / 100)
 
--   Visa and insurance fees were excluded from the main analysis as they were minor (\<5%) and variable.
+-   **Visa and insurance fees:** Excluded as they were minor (\<5%) and variable.
 
 **Income Projection, Budget and Affordability Ratio**
 
-The 2023 U.S. median household income of \$80,160 retreived from U.S. Census Bureau [@2023income], was projected to 2025 at a 2.8% compound annual growth rate [@cagr]. We assumed 50% of projected income could be allocated to education:
+The 2023 U.S. median household income of \$80,160, retrieved from U.S. Census Bureau [@2023income], was projected to 2025 at a 2.8% compound annual growth rate [@cagr]. We assumed 50% of projected income could be allocated to education:
 
 -   Student Budget (2025): Projected Income × 0.5
 -   Affordability Ratio: Student Budget / Total Yearly Cost\
@@ -150,10 +145,10 @@ affordability_ratio <- master_comsci_2025 |>
 
 **Analytical Environment**
 
-All analyses were performed in R (tidyverse [@tidyverse]: readr, ggplot2, knitr and here[@here]) using a Quarto-driven workflow, with Git for version control and report rendering via LaTeX.
+All analyses were performed in R using tidyverse (e.g. readr, ggplot2, knitr) [@tidyverse] and here [@here] within a Quarto workflow. Git was used for version control, and the report was rendered via LaTeX.
 
 -   @fig-affordability shows each university’s affordability ratio.
--   @tbl-affordability summarizes the five most and least affordable Master of Computer Science programs.
+-   @tbl-affordability summarizes the 30 most and least affordable Master of Computer Science programs.
 
 ```{r fig-affordability, fig.height=17, fig.width=13}
 #| label: fig-affordability
