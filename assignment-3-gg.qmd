@@ -1,17 +1,38 @@
 ---
 title: "Affordability of Master of Computer Science Programs for U.S. Students in 2025"
 author:
-  - Nutchanok Saitin
-  - TZU-HSUAN Yang
-  - Ruowei Li
-format:
- pdf:
-    pdf-engine: xelatex
-    toc: true
+- name: Nutchanok Saitin 
+- name: TZU-HSUAN Yang 
+- name: Ruowei Li
+
 bibliography: bib/references.bib
 csl: bib/apa.csl
-editor: visual
+
+format:
+  pdf:
+    documentclass: article
+    pdf-engine: lualatex
+    mainfont: "TeX Gyre Pagella"
+    monofont: "Courier New"
+    geometry: margin=1in
+    toc: true
+    header-includes:
+      - \usepackage{xcolor}          
+      - \usepackage{etoolbox}      
+      - |
+        \makeatletter
+        \patchcmd{\maketitle}
+          {\LARGE\@title}
+          {\LARGE\@title\\
+           \normalsize
+           Nutchanok Saitin\\
+           TZU-HSUAN Yang\\
+           Ruowei Li}
+          {}{}
+        \makeatother
 ---
+
+\newpage
 
 ## Executive Summary
 
@@ -27,7 +48,7 @@ Pursuing a graduate degree abroad is a major life decision that often comes with
 
 Analysis is based on the *Cost of International Education* dataset [@kaggle], imported via
 
-`read_csv(here("data/International_Education_Costs.csv"))`.
+**\colorbox{gray!12}{\scriptsize\texttt{read\_csv(here("data/International\_Education\_Costs.csv"))}}**
 
 ```{r import data}
 #| echo: false
@@ -150,7 +171,7 @@ All analyses were performed in R using tidyverse (e.g. readr, ggplot2, knitr) [@
 -   @fig-affordability shows each university’s affordability ratio.
 -   @tbl-affordability summarizes the 30 most and least affordable Master of Computer Science programs.
 
-```{r fig-affordability, fig.height=17, fig.width=13}
+```{r, fig.height=17, fig.width=13}
 #| label: fig-affordability
 #| fig-cap: "Affordability Ratios for Master of Computer Science Programs by University in 2025"
 #| echo: false
@@ -195,9 +216,11 @@ ggplot(afford_plot, aes(x = University,
     )
 ```
 
-```{r table-affordability}
+\newpage
+
+```{r}
 #| label: tbl-affordability
-#| tbl-cap: "Top 5 Most and Least Affordable Master of Computer Science Programs (2025 Budget)"
+#| tbl-cap: "Top 30 Most and Least Affordable Master of Computer Science Programs (2025 Budget)"
 #| echo: false
 #| warning: false
 #| message: false
