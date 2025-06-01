@@ -44,7 +44,7 @@ Pursuing a graduate degree abroad is a major life decision that often comes with
 
 ## Methodology
 
-**Data Source and Preparation**
+### Data Source and Preparation
 
 Analysis is based on the *Cost of International Education* dataset [@kaggle], imported via
 
@@ -73,6 +73,7 @@ It provides program duration, tuition, rent, living cost index, visa fees and in
 # Filter Master of Computer Science
 international_stu_cost |> filter( Program == "Computer Science",
                                   Level == "Master" ) |>
+  # Review data
   head()
 
 # Specify the cost columns
@@ -96,7 +97,7 @@ international_stu_cost |>
   filter( n > 1)
 ```
 
-**Cost Projection and Component Calculation**
+### Cost Projection and Component Calculation
 
 -   **Tuition and rent:** Projected with a 4.75% forecast annual inflation rate [@inflation].
 
@@ -110,7 +111,7 @@ international_stu_cost |>
 
 -   **Visa and insurance fees:** Excluded as they were minor (\<5%) and variable.
 
-**Income Projection, Budget and Affordability Ratio**
+### Income Projection, Budget and Affordability Ratio
 
 The 2023 U.S. median household income of \$80,160, retrieved from U.S. Census Bureau [@2023income], was projected to 2025 at a 2.8% compound annual growth rate [@cagr]. We assumed 50% of projected income could be allocated to education:
 
@@ -164,7 +165,7 @@ affordability_ratio <- master_comsci_2025 |>
   arrange( AffordabilityRatio )
 ```
 
-**Analytical Environment**
+### Analytical Environment
 
 All analyses were performed in R using tidyverse (e.g. readr, ggplot2, knitr) [@tidyverse] and here [@here] within a Quarto workflow. Git was used for version control, and the report was rendered via LaTeX.
 
@@ -229,7 +230,7 @@ summary_table <- afford_plot |>
   arrange(desc( AffordabilityRatio )) |>
   mutate(Rank = row_number()) |>
   
-  # Get top 5 and bottom 5
+  # Get top 30 and bottom 30
   filter(Rank <= 30 | Rank > n() - 30) |>
   mutate(Category = if_else( Rank <= 30, 
                              "Most Affordable", 
