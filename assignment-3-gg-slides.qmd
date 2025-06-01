@@ -44,7 +44,7 @@ This simple example helps us understand the real financial challenges faced by m
 
 <div style="font-size: 0.60em">
 
-- Source: *Cost of International Education* dataset (USD, 2023)
+- Source: [*Cost of International Education*](https://www.kaggle.com/datasets/adilshamim8/cost-of-international-education) dataset (USD, 2023)
 - Filtered for Master of Computer Science programs
 - Checked for missing values and correct types
 - Duplicates resolved by averaging affordability ratios
@@ -61,7 +61,7 @@ This simple example helps us understand the real financial challenges faced by m
 | Program duration   | Total program length           | Years      |
 | Tuition            | Total program tuition cost     | USD        |
 | Rent               | Monthly rent                   | USD/Month  |
-| Living cost index  | Standardized cost of living<br>| Index      |
+| Living cost index  | Standardized cost of living    | Index      |
 | Visa fees          | Student visa fee               | USD        |
 | Insurance          | Annual insurance fee           | USD        |
 
