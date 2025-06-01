@@ -12,7 +12,7 @@ This repository contains the source files and reproducible code. Our project ana
 
 ## Repository Structure
 
-```
+```         
 ├── data/ # Raw dataset (CSV)
 ├── bib/ # Bibliography or reference files
 ├── images/ # Images used in slides
@@ -49,15 +49,15 @@ This project uses the following tools for reproducibility: - `renv` to manage R 
 
 3.  Restore the environment:
 
-``` r
-renv::restore()
-```
+  ``` r
+  renv::restore()
+  ```
 
 4.  Knit the main report:
 
-``` r
-quarto::render("assignment-3-gg.qmd")
-```
+  ``` r
+  quarto::render("assignment-3-gg.qmd")
+  ```
 
 ## Dataset
 
