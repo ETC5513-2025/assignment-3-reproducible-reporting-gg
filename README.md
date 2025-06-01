@@ -12,6 +12,7 @@ This repository contains the source files and reproducible code. Our project ana
 
 ## Repository Structure
 
+```
 ├── data/ # Raw dataset (CSV)
 ├── bib/ # Bibliography or reference files
 ├── images/ # Images used in slides
@@ -25,43 +26,39 @@ This repository contains the source files and reproducible code. Our project ana
 ├── .gitignore # Git ignore list (includes .Rhistory, renv/cache, etc.)
 ├── .Rprofile # Used by renv to load project environment
 └── renv.lock # Lockfile for restoring package versions
-
+```
 
 ## Scenario & Research Question
 
-A U.S. student plans to study a Master of Computer Science at Monash University with an annual budget of **USD 42,355.90**.  
+A U.S. student plans to study a Master of Computer Science at Monash University with an annual budget of **USD 42,355.90**.\
 We aim to evaluate whether this budget is sufficient by analyzing tuition, rent and living cost expense across global universities.
 
 ## Reproducibility
 
-This project uses the following tools for reproducibility:
-- `renv` to manage R package dependencies
-- `quarto` to generate PDF/HTML reports and slides
-- `git` and GitHub for version control and collaboration
-- `LaTex` for render the pdf file
+This project uses the following tools for reproducibility: - `renv` to manage R package dependencies - `quarto` to generate PDF/HTML reports and slides - `git` and GitHub for version control and collaboration - `LaTex` for render the pdf file
 
 ### To reproduce this report:
 
-1. Clone the repository:
-   
-   ```bash
-   git clone git@github.com:ETC5513-2025/assignment-3-reproducible-reporting-gg.git
-   ```
+1.  Clone the repository:
 
-2. Open the R project file (.Rproj) in RStudio.
+    ``` bash
+    git clone git@github.com:ETC5513-2025/assignment-3-reproducible-reporting-gg.git
+    ```
 
-3. Restore the environment:
+2.  Open the R project file (.Rproj) in RStudio.
 
-  ```r
-  renv::restore()
-  ```
-  
-4. Knit the main report:
+3.  Restore the environment:
 
-  ```r
-  quarto::render("assignment-3-gg.qmd")
-  ```
-  
+``` r
+renv::restore()
+```
+
+4.  Knit the main report:
+
+``` r
+quarto::render("assignment-3-gg.qmd")
+```
+
 ## Dataset
 
 We used the public dataset from [Kaggle - Cost of International Education](https://www.kaggle.com/datasets/adilshamim8/cost-of-international-education), which includes tuition, living cost index, rent, visa fees, and program duration across multiple global universities.
