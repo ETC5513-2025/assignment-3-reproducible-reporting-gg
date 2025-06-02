@@ -1,6 +1,8 @@
 # ETC5513 Assignment 3 - International Education Cost Analysis
 
-Topic: Is Master of Computer Science at Monash University affordable for U.S. student in 2025?
+Topic: Affordability of Master of Computer Science Programs for U.S. Students in 2025
+
+*Is the Master of Computer Science at Monash University affordable for a U.S. student in 2025?*
 
 This repository contains the source files and reproducible code. Our project analyzes the affordability of international Master's programs in Computer Science, with a focus on Monash University.
 
@@ -49,15 +51,15 @@ This project uses the following tools for reproducibility: - `renv` to manage R 
 
 3.  Restore the environment:
 
-  ``` r
-  renv::restore()
-  ```
+``` r
+renv::restore()
+```
 
 4.  Knit the main report:
 
-  ``` r
-  quarto::render("assignment-3-gg.qmd")
-  ```
+``` r
+quarto::render("assignment-3-gg.qmd")
+```
 
 ## Dataset
 
