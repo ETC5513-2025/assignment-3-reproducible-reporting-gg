@@ -2,7 +2,7 @@
 title: "Affordability of Master of Computer Science Programs for U.S. Students in 2025"
 author:
 - name: Nutchanok Saitin 
-- name: TZU-HSUAN Yang 
+- name: Tzu-Hsuan Yang 
 - name: Ruowei Li
 
 bibliography: bib/references.bib
